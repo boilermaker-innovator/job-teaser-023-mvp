@@ -1,4 +1,9 @@
 
+Pasted content
+13.01 KB • 234 extracted lines
+
+Formatting may be inconsistent from source.
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,11 +11,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Teaser Creator - Dynamic Colors</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
-    <meta property="og:title" content="Job Opening">
-    <meta property="og:description" content="Join our team! We're hiring.">
-    <meta property="og:image" content="">
-    <meta property="og:url" content="">
-    <meta property="og:type" content="website">
     <style>
         body { font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background-color: #f3f2ef; }
         .header { background-color: #0077B5; color: white; padding: 20px 0; text-align: center; }
@@ -85,7 +85,7 @@
             // Reset tabs and rotation state
             tabs = ['about', 'responsibilities', 'requirements', 'benefits'];
             if (videoUrl.trim() !== '') {
-                tabs.unshift('video');
+                tabs.push('video');
             }
             currentTabIndex = 0;
             rotationComplete = false;
@@ -94,10 +94,8 @@
             let contentHtml = '';
             
             tabs.forEach((tab, index) => {
-                const isVideo = tab === 'video';
-                const tabName = isVideo ? 'Video' : tab.charAt(0).toUpperCase() + tab.slice(1);
-                tabsHtml += `<div class="tab${index === 0 ? ' active' : ''}" onclick="manualTabSwitch('${tab}')">${tabName}</div>`;
-                if (isVideo) {
+                tabsHtml += `<div class="tab${index === 0 ? ' active' : ''}" onclick="manualTabSwitch('${tab}')">${tab.charAt(0).toUpperCase() + tab.slice(1)}</div>`;
+                if (tab === 'video') {
                     const videoId = extractVideoId(videoUrl);
                     contentHtml += `
                         <div id="${tab}-content" class="tab-content${index === 0 ? ' active' : ''}">
@@ -130,19 +128,6 @@
 
             startRotation();
             extractAndApplyColors();
-            updateOpenGraphTags();
-        }
-
-        function updateOpenGraphTags() {
-            const title = document.getElementById('jobTitle').value;
-            const company = document.getElementById('company').value;
-            const logoUrl = document.getElementById('logoUrl').value;
-            const jobUrl = document.getElementById('jobUrl').value;
-
-            document.documentElement.style.setProperty('--primary-color', `${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}`);
-            document.querySelector('meta[property="og:description"]').setAttribute('content', `Join our team at ${company}! We're hiring for ${title}.`);
-            document.querySelector('meta[property="og:image"]').setAttribute('content', logoUrl);
-            document.querySelector('meta[property="og:url"]').setAttribute('content', jobUrl);
         }
 
         function extractAndApplyColors() {
@@ -158,12 +143,23 @@
                 document.documentElement.style.setProperty('--tertiary-color', `rgb(${palette[2].join(',')})`);
                 
                 // Update styles
-                // Update styles
-applyTabColors();
-
-// Adjust text color for readability
-const previewContent = document.getElementById('previewContent');
-previewContent.style.color = getContrastColor(dominantColor);
+                const preview = document.querySelector('.preview');
+                preview.style.borderColor = `var(--primary-color)`;
+                
+                const tabs = document.querySelectorAll('.tab');
+                tabs.forEach(tab => {
+                    tab.style.color = `var(--primary-color)`;
+                    tab.style.borderColor = `var(--primary-color)`;
+                });
+                
+                const activeTab = document.querySelector('.tab.active');
+                if (activeTab) {
+                    activeTab.style.backgroundColor = `var(--primary-color)`;
+                    activeTab.style.color = 'white';
+                }
+                
+                const applyButton = document.querySelector('.apply-button');
+                applyButton.style.backgroundColor = `var(--primary-color)`;
                 
                 // Adjust text color for readability
                 const previewContent = document.getElementById('previewContent');
@@ -183,27 +179,18 @@ previewContent.style.color = getContrastColor(dominantColor);
         }
 
         function openTab(tabName) {
-    document.querySelectorAll('.tab, .tab-content').forEach(el => {
-        el.classList.remove('active');
-    });
-    const selectedTab = document.querySelector(`.tab:nth-child(${tabs.indexOf(tabName) + 1})`);
-    selectedTab.classList.add('active');
-    document.getElementById(`${tabName}-content`).classList.add('active');
-    
-    // Force re-application of styles
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.style.backgroundColor = 'white';
-        tab.style.color = `rgb(${primaryColor})`;
-        tab.style.borderColor = `rgb(${primaryColor})`;
-    });
-    selectedTab.style.backgroundColor = `rgb(${primaryColor})`;
-    selectedTab.style.color = 'white';
-
-    // Update apply button color
-    const applyButton = document.querySelector('.apply-button');
-    applyButton.style.backgroundColor = `rgb(${primaryColor})`;
-}
+            document.querySelectorAll('.tab, .tab-content').forEach(el => {
+                el.classList.remove('active');
+            });
+            const selectedTab = document.querySelector(`.tab:nth-child(${tabs.indexOf(tabName) + 1})`);
+            selectedTab.classList.add('active');
+            document.getElementById(`${tabName}-content`).classList.add('active');
+            
+            // Update active tab color
+            const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
+            selectedTab.style.backgroundColor = primaryColor;
+            selectedTab.style.color = 'white';
+        }
 
         function manualTabSwitch(tabName) {
             openTab(tabName);
@@ -227,23 +214,17 @@ previewContent.style.color = getContrastColor(dominantColor);
         }
 
         function prefillForm() {
-    document.getElementById('jobTitle').value = "Boilermaker";
-    document.getElementById('company').value = "Industrial Solutions Ltd.";
-    document.getElementById('logoUrl').value = "https://i.ibb.co/y6b5B7P/IMG-1479.jpg";
-    document.getElementById('jobUrl').value = "https://example.com/apply-boilermaker";
-    document.getElementById('videoUrl').value = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-    document.getElementById('about').value = "Join our team of skilled boilermakers at Industrial Solutions Ltd. We're a leading industrial services provider, offering challenging projects and a safety-first work environment.";
-    document.getElementById('responsibilities').value = "- Fabricate, assemble, and repair boilers, tanks, and other vessels\n- Interpret technical drawings and specifications\n- Perform high-quality welding using various techniques\n- Conduct inspections and quality control checks\n- Collaborate with other trades in project execution";
-    document.getElementById('requirements').value = "- Certified Boilermaker qualification\n- Minimum 3 years of experience in industrial settings\n- Proficiency in various welding techniques (MIG, TIG, Stick)\n- Strong understanding of safety protocols and procedures\n- Ability to read and interpret technical drawings\n- Valid driver's license and own transportation";
-    document.getElementById('benefits').value = "- Competitive salary based on experience\n- Opportunity for overtime and weekend work\n- Comprehensive health and dental insurance\n- Superannuation contributions\n- Ongoing training and professional development\n- Career growth opportunities within a growing company";
-    
-    updatePreview();
-    
-    // Force color extraction and application after a short delay
-    setTimeout(() => {
-        extractAndApplyColors();
-    }, 100);
-}
+            document.getElementById('jobTitle').value = "Boilermaker";
+            document.getElementById('company').value = "Industrial Solutions Ltd.";
+            document.getElementById('logoUrl').value = "https://i.ibb.co/y6b5B7P/IMG-1479.jpg";
+            document.getElementById('jobUrl').value = "https://example.com/apply-boilermaker";
+            document.getElementById('videoUrl').value = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+            document.getElementById('about').value = "Join our team of skilled boilermakers at Industrial Solutions Ltd. We're a leading industrial services provider, offering challenging projects and a safety-first work environment.";
+            document.getElementById('responsibilities').value = "- Fabricate, assemble, and repair boilers, tanks, and other vessels\n- Interpret technical drawings and specifications\n- Perform high-quality welding using various techniques\n- Conduct inspections and quality control checks\n- Collaborate with other trades in project execution";
+            document.getElementById('requirements').value = "- Certified Boilermaker qualification\n- Minimum 3 years of experience in industrial settings\n- Proficiency in various welding techniques (MIG, TIG, Stick)\n- Strong understanding of safety protocols and procedures\n- Ability to read and interpret technical drawings\n- Valid driver's license and own transportation";
+            document.getElementById('benefits').value = "- Competitive salary based on experience\n- Opportunity for overtime and weekend work\n- Comprehensive health and dental insurance\n- Superannuation contributions\n- Ongoing training and professional development\n- Career growth opportunities within a growing company";
+            updatePreview();
+        }
 
         document.getElementById('jobForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -255,3 +236,5 @@ previewContent.style.color = getContrastColor(dominantColor);
         // Initialize preview
         updatePreview();
     </script>
+</body>
+</html>
