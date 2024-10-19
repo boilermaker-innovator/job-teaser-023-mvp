@@ -158,21 +158,17 @@
                 document.documentElement.style.setProperty('--tertiary-color', `rgb(${palette[2].join(',')})`);
                 
                 // Update styles
-                const preview = document.querySelector('.preview');
-                preview.style.borderColor = `var(--primary-color)`;
-                
                 const tabs = document.querySelectorAll('.tab');
-                tabs.forEach(tab => {
-                    tab.style.color = `var(--primary-color)`;
-                    tab.style.borderColor = `var(--primary-color)`;
-                });
-                openTab(tabs[currentTabIndex]);
-                
-                const activeTab = document.querySelector('.tab.active');
-                if (activeTab) {
-                    activeTab.style.backgroundColor = `var(--primary-color)`;
-                    activeTab.style.color = 'white';
-                }
+tabs.forEach(tab => {
+    tab.style.color = `var(--primary-color)`;
+    tab.style.borderColor = `var(--primary-color)`;
+});
+
+const activeTab = document.querySelector('.tab.active');
+if (activeTab) {
+    activeTab.style.backgroundColor = `var(--primary-color)`;
+    activeTab.style.color = 'white';
+}
                 
                 const applyButton = document.querySelector('.apply-button');
                 applyButton.style.backgroundColor = `var(--primary-color)`;
@@ -202,14 +198,19 @@
     selectedTab.classList.add('active');
     document.getElementById(`${tabName}-content`).classList.add('active');
     
-    // Update all tab colors
-    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
+    // Force re-application of styles
+    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
     document.querySelectorAll('.tab').forEach(tab => {
         tab.style.backgroundColor = 'white';
-        tab.style.color = primaryColor;
+        tab.style.color = `rgb(${primaryColor})`;
+        tab.style.borderColor = `rgb(${primaryColor})`;
     });
-    selectedTab.style.backgroundColor = primaryColor;
+    selectedTab.style.backgroundColor = `rgb(${primaryColor})`;
     selectedTab.style.color = 'white';
+
+    // Update apply button color
+    const applyButton = document.querySelector('.apply-button');
+    applyButton.style.backgroundColor = `rgb(${primaryColor})`;
 }
 
         function manualTabSwitch(tabName) {
