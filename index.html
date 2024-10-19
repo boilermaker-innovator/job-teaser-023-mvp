@@ -233,17 +233,23 @@
         }
 
         function prefillForm() {
-            document.getElementById('jobTitle').value = "Boilermaker";
-            document.getElementById('company').value = "Industrial Solutions Ltd.";
-            document.getElementById('logoUrl').value = "https://i.ibb.co/y6b5B7P/IMG-1479.jpg";
-            document.getElementById('jobUrl').value = "https://example.com/apply-boilermaker";
-            document.getElementById('videoUrl').value = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-            document.getElementById('about').value = "Join our team of skilled boilermakers at Industrial Solutions Ltd. We're a leading industrial services provider, offering challenging projects and a safety-first work environment.";
-            document.getElementById('responsibilities').value = "- Fabricate, assemble, and repair boilers, tanks, and other vessels\n- Interpret technical drawings and specifications\n- Perform high-quality welding using various techniques\n- Conduct inspections and quality control checks\n- Collaborate with other trades in project execution";
-            document.getElementById('requirements').value = "- Certified Boilermaker qualification\n- Minimum 3 years of experience in industrial settings\n- Proficiency in various welding techniques (MIG, TIG, Stick)\n- Strong understanding of safety protocols and procedures\n- Ability to read and interpret technical drawings\n- Valid driver's license and own transportation";
-            document.getElementById('benefits').value = "- Competitive salary based on experience\n- Opportunity for overtime and weekend work\n- Comprehensive health and dental insurance\n- Superannuation contributions\n- Ongoing training and professional development\n- Career growth opportunities within a growing company";
-            updatePreview();
-        }
+    document.getElementById('jobTitle').value = "Boilermaker";
+    document.getElementById('company').value = "Industrial Solutions Ltd.";
+    document.getElementById('logoUrl').value = "https://i.ibb.co/y6b5B7P/IMG-1479.jpg";
+    document.getElementById('jobUrl').value = "https://example.com/apply-boilermaker";
+    document.getElementById('videoUrl').value = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    document.getElementById('about').value = "Join our team of skilled boilermakers at Industrial Solutions Ltd. We're a leading industrial services provider, offering challenging projects and a safety-first work environment.";
+    document.getElementById('responsibilities').value = "- Fabricate, assemble, and repair boilers, tanks, and other vessels\n- Interpret technical drawings and specifications\n- Perform high-quality welding using various techniques\n- Conduct inspections and quality control checks\n- Collaborate with other trades in project execution";
+    document.getElementById('requirements').value = "- Certified Boilermaker qualification\n- Minimum 3 years of experience in industrial settings\n- Proficiency in various welding techniques (MIG, TIG, Stick)\n- Strong understanding of safety protocols and procedures\n- Ability to read and interpret technical drawings\n- Valid driver's license and own transportation";
+    document.getElementById('benefits').value = "- Competitive salary based on experience\n- Opportunity for overtime and weekend work\n- Comprehensive health and dental insurance\n- Superannuation contributions\n- Ongoing training and professional development\n- Career growth opportunities within a growing company";
+    
+    updatePreview();
+    
+    // Force color extraction and application after a short delay
+    setTimeout(() => {
+        extractAndApplyColors();
+    }, 100);
+}
 
         document.getElementById('jobForm').addEventListener('submit', function(e) {
             e.preventDefault();
