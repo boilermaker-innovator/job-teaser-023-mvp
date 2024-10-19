@@ -1,9 +1,3 @@
-
-Pasted content
-13.01 KB • 234 extracted lines
-
-Formatting may be inconsistent from source.
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -135,41 +129,11 @@ Formatting may be inconsistent from source.
             img.crossOrigin = 'Anonymous';
             img.onload = function() {
                 const dominantColor = colorThief.getColor(img);
-                const palette = colorThief.getPalette(img, 3);
-                
-                // Apply colors
-                document.documentElement.style.setProperty('--primary-color', `rgb(${dominantColor.join(',')})`);
-                document.documentElement.style.setProperty('--secondary-color', `rgb(${palette[1].join(',')})`);
-                document.documentElement.style.setProperty('--tertiary-color', `rgb(${palette[2].join(',')})`);
-                
-                // Update styles
                 const preview = document.querySelector('.preview');
-                preview.style.borderColor = `var(--primary-color)`;
-                
-                const tabs = document.querySelectorAll('.tab');
-                tabs.forEach(tab => {
-                    tab.style.color = `var(--primary-color)`;
-                    tab.style.borderColor = `var(--primary-color)`;
-                });
-                
-                const activeTab = document.querySelector('.tab.active');
-                if (activeTab) {
-                    activeTab.style.backgroundColor = `var(--primary-color)`;
-                    activeTab.style.color = 'white';
-                }
-                
+                preview.style.borderColor = `rgb(${dominantColor.join(',')})`;
                 const applyButton = document.querySelector('.apply-button');
-                applyButton.style.backgroundColor = `var(--primary-color)`;
-                
-                // Adjust text color for readability
-                const previewContent = document.getElementById('previewContent');
-                previewContent.style.color = getContrastColor(dominantColor);
+                applyButton.style.backgroundColor = `rgb(${dominantColor.join(',')})`;
             };
-        }
-
-        function getContrastColor(rgb) {
-            const brightness = (rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000;
-            return brightness > 128 ? 'black' : 'white';
         }
 
         function extractVideoId(url) {
@@ -178,51 +142,43 @@ Formatting may be inconsistent from source.
             return (match && match[2].length === 11) ? match[2] : null;
         }
 
-        function openTab(tabName) {
-            document.querySelectorAll('.tab, .tab-content').forEach(el => {
-                el.classList.remove('active');
-            });
-            const selectedTab = document.querySelector(`.tab:nth-child(${tabs.indexOf(tabName) + 1})`);
-            selectedTab.classList.add('active');
-            document.getElementById(`${tabName}-content`).classList.add('active');
-            
-            // Update active tab color
-            const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
-            selectedTab.style.backgroundColor = primaryColor;
-            selectedTab.style.color = 'white';
+        function manualTabSwitch(tab) {
+            clearInterval(rotationInterval);
+            switchTab(tab);
+            rotationComplete = true;
         }
 
-        function manualTabSwitch(tabName) {
-            openTab(tabName);
-            currentTabIndex = tabs.indexOf(tabName);
-            clearInterval(rotationInterval);
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector(`.tab:nth-child(${tabs.indexOf(tab) + 1})`).classList.add('active');
+            document.getElementById(`${tab}-content`).classList.add('active');
         }
 
         function startRotation() {
-            clearInterval(rotationInterval);
             rotationInterval = setInterval(() => {
                 if (!rotationComplete) {
-                    currentTabIndex++;
-                    if (currentTabIndex >= tabs.length) {
-                        currentTabIndex = 0;
-                        rotationComplete = true;
-                        clearInterval(rotationInterval);
-                    }
-                    openTab(tabs[currentTabIndex]);
+                    const currentTab = tabs[currentTabIndex];
+                    switchTab(currentTab);
+                    currentTabIndex = (currentTabIndex + 1) % tabs.length;
+                    if (currentTabIndex === 0) rotationComplete = true;
+                } else {
+                    clearInterval(rotationInterval);
                 }
             }, 3000);
         }
 
         function prefillForm() {
-            document.getElementById('jobTitle').value = "Boilermaker";
-            document.getElementById('company').value = "Industrial Solutions Ltd.";
-            document.getElementById('logoUrl').value = "https://i.ibb.co/y6b5B7P/IMG-1479.jpg";
-            document.getElementById('jobUrl').value = "https://example.com/apply-boilermaker";
-            document.getElementById('videoUrl').value = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-            document.getElementById('about').value = "Join our team of skilled boilermakers at Industrial Solutions Ltd. We're a leading industrial services provider, offering challenging projects and a safety-first work environment.";
-            document.getElementById('responsibilities').value = "- Fabricate, assemble, and repair boilers, tanks, and other vessels\n- Interpret technical drawings and specifications\n- Perform high-quality welding using various techniques\n- Conduct inspections and quality control checks\n- Collaborate with other trades in project execution";
-            document.getElementById('requirements').value = "- Certified Boilermaker qualification\n- Minimum 3 years of experience in industrial settings\n- Proficiency in various welding techniques (MIG, TIG, Stick)\n- Strong understanding of safety protocols and procedures\n- Ability to read and interpret technical drawings\n- Valid driver's license and own transportation";
-            document.getElementById('benefits').value = "- Competitive salary based on experience\n- Opportunity for overtime and weekend work\n- Comprehensive health and dental insurance\n- Superannuation contributions\n- Ongoing training and professional development\n- Career growth opportunities within a growing company";
+            document.getElementById('jobTitle').value = 'Software Engineer';
+            document.getElementById('company').value = 'Tech Solutions Inc.';
+            document.getElementById('logoUrl').value = 'https://via.placeholder.com/80';
+            document.getElementById('jobUrl').value = 'https://example.com/apply';
+            document.getElementById('videoUrl').value = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+            document.getElementById('about').value = 'Join our innovative team to develop cutting-edge applications.';
+            document.getElementById('responsibilities').value = 'Design and implement new features for our platform.';
+            document.getElementById('requirements').value = 'Proven experience in software development.';
+            document.getElementById('benefits').value = 'Flexible working hours, health insurance.';
+            
             updatePreview();
         }
 
@@ -232,9 +188,6 @@ Formatting may be inconsistent from source.
         });
 
         document.getElementById('prefillButton').addEventListener('click', prefillForm);
-
-        // Initialize preview
-        updatePreview();
     </script>
 </body>
 </html>
