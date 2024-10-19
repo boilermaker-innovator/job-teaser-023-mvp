@@ -158,20 +158,12 @@
                 document.documentElement.style.setProperty('--tertiary-color', `rgb(${palette[2].join(',')})`);
                 
                 // Update styles
-                const tabs = document.querySelectorAll('.tab');
-tabs.forEach(tab => {
-    tab.style.color = `var(--primary-color)`;
-    tab.style.borderColor = `var(--primary-color)`;
-});
+                // Update styles
+applyTabColors();
 
-const activeTab = document.querySelector('.tab.active');
-if (activeTab) {
-    activeTab.style.backgroundColor = `var(--primary-color)`;
-    activeTab.style.color = 'white';
-}
-                
-                const applyButton = document.querySelector('.apply-button');
-                applyButton.style.backgroundColor = `var(--primary-color)`;
+// Adjust text color for readability
+const previewContent = document.getElementById('previewContent');
+previewContent.style.color = getContrastColor(dominantColor);
                 
                 // Adjust text color for readability
                 const previewContent = document.getElementById('previewContent');
