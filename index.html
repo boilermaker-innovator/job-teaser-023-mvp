@@ -139,7 +139,7 @@
             const logoUrl = document.getElementById('logoUrl').value;
             const jobUrl = document.getElementById('jobUrl').value;
 
-            document.querySelector('meta[property="og:title"]').setAttribute('content', `Job Opening: ${title}`);
+            document.documentElement.style.setProperty('--primary-color', `${dominantColor[0]}, ${dominantColor[1]}, ${dominantColor[2]}`);
             document.querySelector('meta[property="og:description"]').setAttribute('content', `Join our team at ${company}! We're hiring for ${title}.`);
             document.querySelector('meta[property="og:image"]').setAttribute('content', logoUrl);
             document.querySelector('meta[property="og:url"]').setAttribute('content', jobUrl);
