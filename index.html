@@ -166,6 +166,7 @@
                     tab.style.color = `var(--primary-color)`;
                     tab.style.borderColor = `var(--primary-color)`;
                 });
+                openTab(tabs[currentTabIndex]);
                 
                 const activeTab = document.querySelector('.tab.active');
                 if (activeTab) {
