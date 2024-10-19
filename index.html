@@ -194,18 +194,22 @@
         }
 
         function openTab(tabName) {
-            document.querySelectorAll('.tab, .tab-content').forEach(el => {
-                el.classList.remove('active');
-            });
-            const selectedTab = document.querySelector(`.tab:nth-child(${tabs.indexOf(tabName) + 1})`);
-            selectedTab.classList.add('active');
-            document.getElementById(`${tabName}-content`).classList.add('active');
-            
-            // Update active tab color
-            const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
-            selectedTab.style.backgroundColor = primaryColor;
-            selectedTab.style.color = 'white';
-        }
+    document.querySelectorAll('.tab, .tab-content').forEach(el => {
+        el.classList.remove('active');
+    });
+    const selectedTab = document.querySelector(`.tab:nth-child(${tabs.indexOf(tabName) + 1})`);
+    selectedTab.classList.add('active');
+    document.getElementById(`${tabName}-content`).classList.add('active');
+    
+    // Update all tab colors
+    const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color');
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.style.backgroundColor = 'white';
+        tab.style.color = primaryColor;
+    });
+    selectedTab.style.backgroundColor = primaryColor;
+    selectedTab.style.color = 'white';
+}
 
         function manualTabSwitch(tabName) {
             openTab(tabName);
