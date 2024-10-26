@@ -472,16 +472,15 @@ Download your teasers & share everywhere!`;
     }
 
     // Event Listeners
-    document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     // Run prefill immediately
     prefillForm();
     
-    // Add event listeners
     document.getElementById('jobForm').addEventListener('submit', (e) => {
         e.preventDefault();
         updatePreview();
     });
-    
+
     document.getElementById('clearButton').addEventListener('click', () => {
         document.getElementById('jobForm').reset();
         document.getElementById('previewContent').innerHTML = '';
