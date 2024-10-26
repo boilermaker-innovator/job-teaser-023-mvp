@@ -75,7 +75,7 @@
                 <textarea id="benefits" placeholder="Benefits" required></textarea>
                 <div class="button-container">
                     <button type="submit">Update Preview</button>
-                    <button type="button" id="prefillButton">Prefill Form</button>
+                    <button type="button" id="clearButton">Clear Form</button>
                 </div>
             </form>
         </div>
@@ -255,7 +255,16 @@ Limited spots available - sign up now to secure your place!`;
             updatePreview();
         });
 
-        document.getElementById('prefillButton').addEventListener('click', prefillForm);
+        document.addEventListener('DOMContentLoaded', () => {
+    // Auto-fill when page loads
+    prefillForm();
+    
+    // Clear form button handler
+    document.getElementById('clearButton').addEventListener('click', () => {
+        document.getElementById('jobForm').reset();
+        document.getElementById('previewContent').innerHTML = '';
+    });
+});
     </script>
 </body>
 </html>
