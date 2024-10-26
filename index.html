@@ -2,112 +2,19 @@
 <html lang="en">
 <head>
     <!-- Basic Meta Tags -->
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Create dynamic job teasers with customizable previews, embedded videos, and color-enhanced themes for effective job postings.">
-<meta name="author" content="Boilermaker Innovator">
-
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://boilermaker-innovator.github.io/job-teaser-023-mvp/">
-<meta property="og:title" content="Job Teaser Creator - Dynamic Colors">
-<meta property="og:description" content="Create dynamic job teasers with customizable previews, embedded videos, and color-enhanced themes for effective job postings.">
-<meta property="og:image" content="https://i.ibb.co/8j0Zc9W/IMG-1435.jpg">
-<meta property="og:site_name" content="Job Teaser Creator">
-<meta property="og:locale" content="en_US">
-
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://boilermaker-innovator.github.io/job-teaser-023-mvp/">
-<meta property="twitter:title" content="Job Teaser Creator - Dynamic Colors">
-<meta property="twitter:description" content="Create dynamic job teasers with customizable previews, embedded videos, and color-enhanced themes for effective job postings.">
-<meta property="twitter:image" content="https://i.ibb.co/M2xFnxM/IMG-1355.jpg">
-
-<!-- Canonical -->
-<link rel="canonical" href="https://boilermaker-innovator.github.io/job-teaser-023-mvp/">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Teaser Creator - Dynamic Colors</title>
-    :root {
-    --primary-color: #0A66C2;  /* LinkedIn blue */
-    --primary-hover: #004182;
-    --success-color: #28a745;  /* Green for download */
-    --success-hover: #218838;
-    --background: #f3f2ef;
-    --border: #e0e0e0;
-}
+    <meta name="description" content="Create dynamic job teasers with customizable previews for effective job postings.">
+    <meta name="author" content="Boilermaker Innovator">
 
-body { 
-    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", sans-serif; 
-    line-height: 1.6; 
-    margin: 0; 
-    padding: 0; 
-    background-color: var(--background); 
-}
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Job Teaser Creator">
+    <meta property="og:description" content="Create dynamic job teasers with customizable previews for effective job postings.">
+    <meta property="og:image" content="https://i.ibb.co/8j0Zc9W/IMG-1435.jpg">
 
-.header { 
-    background-color: var(--primary-color); 
-    color: white; 
-    padding: 20px 0; 
-    text-align: center;
-}
-
-.container { 
-    max-width: 1200px; 
-    margin: 0 auto; 
-    padding: 20px; 
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 20px;
-}
-
-.form-container { 
-    background-color: #ffffff; 
-    padding: 24px; 
-    border-radius: 8px; 
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-    flex: 1 1 500px;
-}
-
-.preview-container { 
-    flex: 1 1 500px; 
-}
-
-.button-container { 
-    display: flex; 
-    gap: 10px;
-    margin-top: 20px; 
-}
-
-button { 
-    padding: 12px 24px; 
-    background-color: var(--primary-color); 
-    color: white; 
-    border: none; 
-    border-radius: 24px; 
-    cursor: pointer; 
-    transition: all 0.3s;
-    font-weight: 600;
-}
-
-.download-button { 
-    background-color: var(--success-color); 
-}
-
-.download-button:hover { 
-    background-color: var(--success-hover); 
-}
-
-button:hover { 
-    background-color: var(--primary-hover); 
-}
-        .tab-content.active { display: block; }
-        .job-header { display: flex; align-items: center; margin-bottom: 20px; }
-        .job-logo { width: 120px; height: 120px; object-fit: contain; margin-right: 20px; border: 1px solid #e0e0e0; border-radius: 4px; }
-        .apply-button { display: block; width: 100%; padding: 12px; background-color: #0A66C2 !important; color: white; text-align: center; }
-        .apply-button:hover { background-color: #006097; }
-    </style>
+    <title>Job Teaser Creator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
 </head>
 <body>
     <div class="header">
@@ -127,11 +34,9 @@ button:hover {
                 <textarea id="requirements" placeholder="Requirements" required></textarea>
                 <textarea id="benefits" placeholder="Benefits" required></textarea>
                 <div class="button-container">
-                    <div class="button-container">
-    <button type="submit">Update Preview</button>
-    <button type="button" id="clearButton">Clear Form</button>
-    <button type="button" id="downloadButton" class="download-button">Download Teaser</button>
-</div> 
+                    <button type="submit">Update Preview</button>
+                    <button type="button" id="clearButton">Clear Form</button>
+                    <button type="button" id="downloadButton" class="download-button">Download Teaser</button>
                 </div>
             </form>
         </div>
@@ -141,121 +46,335 @@ button:hover {
                 <div id="previewContent"></div>
             </div>
         </div>
-    <div class="button-container">
-    <button type="submit">Update Preview</button>
-    <button type="button" id="clearButton">Clear Form</button>
-    <button type="button" id="downloadButton" class="download-button">Download Teaser</button>
-</div>
-        let rotationInterval;
-        let rotationComplete = false;
+    </div>
+    <style>
+    :root {
+        --primary-color: #0A66C2;  /* LinkedIn blue */
+        --primary-hover: #004182;
+        --success-color: #28a745;  /* Green for download */
+        --success-hover: #218838;
+        --background: #f3f2ef;
+        --border: #e0e0e0;
+    }
 
-        function updatePreview() {
-            const title = document.getElementById('jobTitle').value;
-            const company = document.getElementById('company').value;
-            const logoUrl = document.getElementById('logoUrl').value;
-            const jobUrl = document.getElementById('jobUrl').value;
-            const videoUrl = document.getElementById('videoUrl').value;
-            
-            // Reset tabs and rotation state
-            tabs = ['about', 'responsibilities', 'requirements', 'benefits'];
-            if (videoUrl.trim() !== '') {
-                tabs.push('video');
-            }
-            currentTabIndex = 0;
-            rotationComplete = false;
-            
-            let tabsHtml = '<div class="tab-container">';
-            let contentHtml = '';
-            
-            tabs.forEach((tab, index) => {
-                tabsHtml += `<div class="tab${index === 0 ? ' active' : ''}" onclick="manualTabSwitch('${tab}')">${tab.charAt(0).toUpperCase() + tab.slice(1)}</div>`;
-                if (tab === 'video') {
-                    const videoId = extractVideoId(videoUrl);
-                    contentHtml += `
-                        <div id="${tab}-content" class="tab-content${index === 0 ? ' active' : ''}">
-                            <iframe width="100%" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                        </div>
-                    `;
-                } else {
-                    contentHtml += `
-                        <div id="${tab}-content" class="tab-content${index === 0 ? ' active' : ''}">
-                            <p>${document.getElementById(tab).value.replace(/\n/g, '<br>')}</p>
-                        </div>
-                    `;
-                }
-            });
-            
-            tabsHtml += '</div>';
-            
-            document.getElementById('previewContent').innerHTML = `
-                <div class="job-header">
-                    <img src="${logoUrl}" alt="${company} logo" class="job-logo" crossorigin="anonymous">
-                    <div>
-                        <h2>${title}</h2>
-                        <h3>${company}</h3>
+    body { 
+        font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: var(--background);
+    }
+
+    .header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .form-container {
+        background-color: white;
+        padding: 24px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        flex: 1 1 500px;
+    }
+
+    .preview-container {
+        flex: 1 1 500px;
+    }
+
+    h1, h2 {
+        margin: 0;
+        font-weight: 600;
+    }
+
+    h1 { font-size: 24px; }
+    h2 { 
+        color: var(--primary-color);
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    input, textarea {
+        width: 100%;
+        margin-bottom: 16px;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+        transition: border-color 0.3s;
+    }
+
+    input:focus, textarea:focus {
+        outline: none;
+        border-color: var(--primary-color);
+    }
+
+    textarea {
+        height: 100px;
+        resize: vertical;
+    }
+
+    .button-container {
+        display: flex;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    button {
+        padding: 12px 24px;
+        color: white;
+        border: none;
+        border-radius: 24px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-weight: 600;
+        font-size: 16px;
+        background-color: var(--primary-color);
+        flex: 1;
+    }
+
+    button:hover {
+        background-color: var(--primary-hover);
+    }
+
+    .download-button {
+        background-color: var(--success-color);
+    }
+
+    .download-button:hover {
+        background-color: var(--success-hover);
+    }
+
+    .preview {
+        background-color: white;
+        padding: 24px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border: 3px solid var(--primary-color);
+    }
+
+    .tab-container {
+        display: flex;
+        background-color: var(--background);
+        border-bottom: 1px solid var(--border);
+        border-radius: 4px 4px 0 0;
+        overflow: hidden;
+    }
+
+    .tab {
+        padding: 12px 16px;
+        cursor: pointer;
+        background: white;
+        border: none;
+        transition: all 0.3s;
+        font-weight: 600;
+        color: var(--primary-color);
+        flex: 1;
+        text-align: center;
+    }
+
+    .tab:hover {
+        background-color: #f8f9fa;
+    }
+
+    .tab.active {
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .tab-content {
+        display: none;
+        padding: 16px;
+        border: 1px solid var(--border);
+        border-top: none;
+        background-color: white;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    .job-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .job-logo {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+        margin-right: 20px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 4px;
+        background: white;
+    }
+
+    .apply-button {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        background-color: var(--primary-color) !important;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 24px;
+        font-weight: 600;
+        margin-top: 20px;
+        transition: background-color 0.3s;
+    }
+
+    .apply-button:hover {
+        background-color: var(--primary-hover) !important;
+        text-decoration: none;
+        color: white;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 10px;
+        }
+        
+        .button-container {
+            flex-direction: column;
+        }
+        
+        .job-header {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .job-logo {
+            margin: 0 auto 20px;
+        }
+    }
+</style>
+  <script>
+    const colorThief = new ColorThief();
+    let tabs = ['about', 'responsibilities', 'requirements', 'benefits'];
+    let currentTabIndex = 0;
+    let rotationInterval;
+    let rotationComplete = false;
+
+    function updatePreview() {
+        const title = document.getElementById('jobTitle').value;
+        const company = document.getElementById('company').value;
+        const logoUrl = document.getElementById('logoUrl').value;
+        const jobUrl = document.getElementById('jobUrl').value;
+        const videoUrl = document.getElementById('videoUrl').value;
+        
+        tabs = ['about', 'responsibilities', 'requirements', 'benefits'];
+        if (videoUrl.trim() !== '') {
+            tabs.push('video');
+        }
+        currentTabIndex = 0;
+        rotationComplete = false;
+        
+        let tabsHtml = '<div class="tab-container">';
+        let contentHtml = '';
+        
+        tabs.forEach((tab, index) => {
+            tabsHtml += `<div class="tab${index === 0 ? ' active' : ''}" onclick="manualTabSwitch('${tab}')">${tab.charAt(0).toUpperCase() + tab.slice(1)}</div>`;
+            if (tab === 'video') {
+                const videoId = extractVideoId(videoUrl);
+                contentHtml += `
+                    <div id="${tab}-content" class="tab-content${index === 0 ? ' active' : ''}">
+                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                     </div>
+                `;
+            } else {
+                contentHtml += `
+                    <div id="${tab}-content" class="tab-content${index === 0 ? ' active' : ''}">
+                        <p>${document.getElementById(tab).value.replace(/\n/g, '<br>')}</p>
+                    </div>
+                `;
+            }
+        });
+        
+        tabsHtml += '</div>';
+        
+        document.getElementById('previewContent').innerHTML = `
+            <div class="job-header">
+                <img src="${logoUrl}" alt="${company} logo" class="job-logo" crossorigin="anonymous">
+                <div>
+                    <h2>${title}</h2>
+                    <h3>${company}</h3>
                 </div>
-                ${tabsHtml}
-                ${contentHtml}
-                <a href="${jobUrl}" class="apply-button" target="_blank">Apply Now</a>
-            `;
+            </div>
+            ${tabsHtml}
+            ${contentHtml}
+            <a href="${jobUrl}" class="apply-button" target="_blank">Apply Now</a>
+        `;
 
-            startRotation();
-            extractAndApplyColors();
-        }
+        startRotation();
+        extractAndApplyColors();
+    }
 
-        function extractAndApplyColors() {
-            const img = document.querySelector('.job-logo');
-            img.crossOrigin = 'Anonymous';
-            img.onload = function() {
-                const dominantColor = colorThief.getColor(img);
-                const preview = document.querySelector('.preview');
-                preview.style.borderColor = `rgb(${dominantColor.join(',')})`;
-                const applyButton = document.querySelector('.apply-button');
-                applyButton.style.backgroundColor = `rgb(${dominantColor.join(',')})`;
-            };
-        }
+    function extractAndApplyColors() {
+        const img = document.querySelector('.job-logo');
+        img.crossOrigin = 'Anonymous';
+        img.onload = function() {
+            const dominantColor = colorThief.getColor(img);
+            const preview = document.querySelector('.preview');
+            preview.style.borderColor = `rgb(${dominantColor.join(',')})`;
+        };
+    }
 
-        function extractVideoId(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[2].length === 11) ? match[2] : null;
-        }
+    function extractVideoId(url) {
+        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+        const match = url.match(regExp);
+        return (match && match[2].length === 11) ? match[2] : null;
+    }
 
-        function manualTabSwitch(tab) {
-            clearInterval(rotationInterval);
-            switchTab(tab);
-            rotationComplete = true;
-        }
+    function manualTabSwitch(tab) {
+        clearInterval(rotationInterval);
+        switchTab(tab);
+        rotationComplete = true;
+    }
 
-        function switchTab(tab) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelector(`.tab:nth-child(${tabs.indexOf(tab) + 1})`).classList.add('active');
-            document.getElementById(`${tab}-content`).classList.add('active');
-        }
+    function switchTab(tab) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.querySelector(`.tab:nth-child(${tabs.indexOf(tab) + 1})`).classList.add('active');
+        document.getElementById(`${tab}-content`).classList.add('active');
+    }
 
-        function startRotation() {
-            rotationInterval = setInterval(() => {
-                if (!rotationComplete) {
-                    const currentTab = tabs[currentTabIndex];
-                    switchTab(currentTab);
-                    currentTabIndex = (currentTabIndex + 1) % tabs.length;
-                    if (currentTabIndex === 0) rotationComplete = true;
-                } else {
-                    clearInterval(rotationInterval);
-                }
-            }, 3000);
-        }
+    function startRotation() {
+        clearInterval(rotationInterval);
+        rotationInterval = setInterval(() => {
+            if (!rotationComplete) {
+                const currentTab = tabs[currentTabIndex];
+                switchTab(currentTab);
+                currentTabIndex = (currentTabIndex + 1) % tabs.length;
+                if (currentTabIndex === 0) rotationComplete = true;
+            } else {
+                clearInterval(rotationInterval);
+            }
+        }, 3000);
+    }
 
-      function prefillForm() {
-    document.getElementById('jobTitle').value = 'Create Free Job Teasers Now';
-    document.getElementById('company').value = 'For Recruiters & Hiring Managers';
-    document.getElementById('logoUrl').value = 'https://i.ibb.co/NWxR3hk/IMG-1458.jpg';
-    document.getElementById('jobUrl').value = '#download-teaser';
-    document.getElementById('videoUrl').value = '';
-    
-    document.getElementById('about').value = 
+    function prefillForm() {
+        document.getElementById('jobTitle').value = 'Create Free Job Teasers Now';
+        document.getElementById('company').value = 'For Recruiters & Hiring Managers';
+        document.getElementById('logoUrl').value = 'https://i.ibb.co/NWxR3hk/IMG-1458.jpg';
+        document.getElementById('jobUrl').value = '#download-teaser';
+        document.getElementById('videoUrl').value = '';
+        
+        document.getElementById('about').value = 
 `🚀 Free Tool for Modern Recruiters!
 
 Create eye-catching job teasers for your existing job posts. Perfect for sharing on LinkedIn, Facebook, and Twitter.
@@ -264,7 +383,7 @@ Create eye-catching job teasers for your existing job posts. Perfect for sharing
 💾 Saves locally to your device
 🎯 Use with any job site`;
 
-    document.getElementById('responsibilities').value = 
+        document.getElementById('responsibilities').value = 
 `Why Use Job Teasers?
 
 📊 Stand out in social feeds
@@ -275,7 +394,7 @@ Create eye-catching job teasers for your existing job posts. Perfect for sharing
 
 Keep your posts & applications on your preferred platform!`;
 
-    document.getElementById('requirements').value = 
+        document.getElementById('requirements').value = 
 `How It Works:
 
 1. Enter your job details
@@ -290,7 +409,7 @@ Features:
 ✅ Use with any job board
 ✅ Full creative control`;
 
-    document.getElementById('benefits').value = 
+        document.getElementById('benefits').value = 
 `Start Creating Now!
 
 🆓 Always free to use
@@ -300,133 +419,81 @@ Features:
 🔗 Link to any job post
 
 Download your teasers & share everywhere!`;
-    
-    updatePreview();
-}
-        document.getElementById('jobForm').addEventListener('submit', function(e) {
+        
+        updatePreview();
+    }
+
+    function downloadTeaser() {
+        const previewContent = document.querySelector('.preview').innerHTML;
+        const fullStyles = document.querySelector('style').innerHTML;
+
+        const html = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <meta charset="UTF-8">
+                <title>Job Teaser</title>
+                <style>${fullStyles}</style>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+            </head>
+            <body style="padding: 20px; background-color: #f3f2ef;">
+                <div class="preview" style="max-width: 600px; margin: 0 auto;">
+                    ${previewContent}
+                </div>
+                <script>
+                    function switchTab(tab) {
+                        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                        document.querySelector(\`.tab:nth-child(\${['about', 'responsibilities', 'requirements', 'benefits'].indexOf(tab) + 1})\`).classList.add('active');
+                        document.getElementById(\`\${tab}-content\`).classList.add('active');
+                    }
+
+                    let currentIndex = 0;
+                    const tabs = ['about', 'responsibilities', 'requirements', 'benefits'];
+                    setInterval(() => {
+                        switchTab(tabs[currentIndex]);
+                        currentIndex = (currentIndex + 1) % tabs.length;
+                    }, 3000);
+
+                    document.querySelectorAll('.tab').forEach(tab => {
+                        tab.addEventListener('click', () => {
+                            const tabId = tab.textContent.toLowerCase();
+                            switchTab(tabId);
+                        });
+                    });
+                </script>
+            </body>
+            </html>
+        `;
+
+        const blob = new Blob([html], { type: 'text/html' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `job-teaser-${document.getElementById('jobTitle').value.toLowerCase().replace(/\s+/g, '-')}.html`;
+        document.body.appendChild(a);
+        a.click();
+        URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    }
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', () => {
+        prefillForm();
+        
+        document.getElementById('jobForm').addEventListener('submit', (e) => {
             e.preventDefault();
             updatePreview();
         });
-
-        document.addEventListener('DOMContentLoaded', () => {
-    // Auto-fill when page loads
-    prefillForm();
-    
-    // Clear form button handler
-    document.getElementById('clearButton').addEventListener('click', () => {
-        document.getElementById('jobForm').reset();
-        document.getElementById('previewContent').innerHTML = '';
+        
+        document.getElementById('clearButton').addEventListener('click', () => {
+            document.getElementById('jobForm').reset();
+            document.getElementById('previewContent').innerHTML = '';
+        });
+        
+        document.getElementById('downloadButton').addEventListener('click', downloadTeaser);
     });
-});
-        function downloadTeaser() {
-    const previewContent = document.querySelector('.preview').innerHTML;
-    const fullStyles = document.querySelector('style').innerHTML;
-
-    const html = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Job Teaser</title>
-            <style>
-                ${fullStyles}
-            </style>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
-        </head>
-        <body style="padding: 20px; background-color: #f3f2ef;">
-            <div class="preview" style="max-width: 600px; margin: 0 auto;">
-                ${previewContent}
-            </div>
-            <script>
-                // Add tab switching functionality
-                function switchTab(tab) {
-                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    document.querySelector(\`.tab:nth-child(\${['about', 'responsibilities', 'requirements', 'benefits'].indexOf(tab) + 1})\`).classList.add('active');
-                    document.getElementById(\`\${tab}-content\`).classList.add('active');
-                }
-
-                // Auto rotate tabs
-                let currentIndex = 0;
-                const tabs = ['about', 'responsibilities', 'requirements', 'benefits'];
-                setInterval(() => {
-                    switchTab(tabs[currentIndex]);
-                    currentIndex = (currentIndex + 1) % tabs.length;
-                }, 3000);
-
-                // Add click handlers to tabs
-                document.querySelectorAll('.tab').forEach(tab => {
-                    tab.addEventListener('click', () => {
-                        const tabId = tab.textContent.toLowerCase();
-                        switchTab(tabId);
-                    });
-                });
-            </script>
-        </body>
-        </html>
-    `;
-function downloadTeaser() {
-    const previewContent = document.querySelector('.preview').innerHTML;
-    const fullStyles = document.querySelector('style').innerHTML;
-
-    const html = `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Job Teaser</title>
-            <style>
-                ${fullStyles}
-            </style>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
-        </head>
-        <body style="padding: 20px; background-color: #f3f2ef;">
-            <div class="preview" style="max-width: 600px; margin: 0 auto;">
-                ${previewContent}
-            </div>
-            <script>
-                // Add tab switching functionality
-                function switchTab(tab) {
-                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                    document.querySelector(\`.tab:nth-child(\${['about', 'responsibilities', 'requirements', 'benefits'].indexOf(tab) + 1})\`).classList.add('active');
-                    document.getElementById(\`\${tab}-content\`).classList.add('active');
-                }
-
-                // Auto rotate tabs
-                let currentIndex = 0;
-                const tabs = ['about', 'responsibilities', 'requirements', 'benefits'];
-                setInterval(() => {
-                    switchTab(tabs[currentIndex]);
-                    currentIndex = (currentIndex + 1) % tabs.length;
-                }, 3000);
-
-                // Add click handlers to tabs
-                document.querySelectorAll('.tab').forEach(tab => {
-                    tab.addEventListener('click', () => {
-                        const tabId = tab.textContent.toLowerCase();
-                        switchTab(tabId);
-                    });
-                });
-            </script>
-        </body>
-        </html>
-    `;
-
-
-    const blob = new Blob([html], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `job-teaser-${document.getElementById('jobTitle').value.toLowerCase().replace(/\s+/g, '-')}.html`;
-    document.body.appendChild(a);
-    a.click();
-    URL.revokeObjectURL(url);
-    document.body.removeChild(a);
-}
-
-// Add the download button event listener with the other listeners
-document.getElementById('downloadButton').addEventListener('click', downloadTeaser);
-    </script>
+</script>
 </body>
-</html>
+</html>  
+    
