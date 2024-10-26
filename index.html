@@ -197,62 +197,60 @@
         }
 
       function prefillForm() {
-    // Company branding
-    document.getElementById('jobTitle').value = 'Job Teaser Creator - Beta Testing';
-    document.getElementById('company').value = 'Next Gen Job Ads';
-    document.getElementById('logoUrl').value = 'https://i.ibb.co/NWxR3hk/IMG-1458.jpg';  // Keep your existing logo
-    document.getElementById('jobUrl').value = '#beta-signup';  // Replace with your actual signup URL
-    document.getElementById('videoUrl').value = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';  // Replace with your demo video
-
-    // Main content sections
+    document.getElementById('jobTitle').value = 'Create Free Job Teasers Now';
+    document.getElementById('company').value = 'For Recruiters & Hiring Managers';
+    document.getElementById('logoUrl').value = 'https://i.ibb.co/NWxR3hk/IMG-1458.jpg';
+    document.getElementById('jobUrl').value = '#download-teaser';
+    document.getElementById('videoUrl').value = '';
+    
     document.getElementById('about').value = 
-`Transform how you share job opportunities! 
+`🚀 Free Tool for Modern Recruiters!
 
-Traditional job posts are losing potential candidates' attention. Our Job Teaser Creator helps you create engaging, shareable job previews in minutes.
+Create eye-catching job teasers for your existing job posts. Perfect for sharing on LinkedIn, Facebook, and Twitter.
 
-✨ Create once, share everywhere
-🎯 Attract better candidates
-⚡ Stand out from the crowd`;
+✨ No account needed
+💾 Saves locally to your device
+🎯 Use with any job site`;
 
     document.getElementById('responsibilities').value = 
-`Current Problems We Solve:
+`Why Use Job Teasers?
 
-❌ Low engagement with traditional job posts
-❌ Time wasted on unqualified applications
-❌ Difficulty standing out in crowded job boards
-❌ Limited social media sharing options
-❌ Inconsistent branding across platforms
+📊 Stand out in social feeds
+🎯 Drive traffic to your job posts
+⏱️ Create in under 2 minutes
+🌟 Works with all job boards
+🔄 Easy to update and reshare
 
-These challenges cost recruiters time and companies money. Job Teasers provide a modern solution.`;
+Keep your posts & applications on your preferred platform!`;
 
     document.getElementById('requirements').value = 
-`What Makes Job Teasers Different:
+`How It Works:
 
-🎨 Dynamic color matching with company branding
-🔄 Auto-rotating content sections
-🎥 Embedded video capabilities
-📱 Mobile-optimized design
-🎯 One-click application process
-📊 Built-in engagement tracking
-🔗 Social media optimized
+1. Enter your job details
+2. Add your company branding
+3. Download your teaser
+4. Share anywhere!
 
-No coding required - create professional job teasers in minutes!`;
+Features:
+✅ Works offline
+✅ No data stored online
+✅ Download & keep forever
+✅ Use with any job board
+✅ Full creative control`;
 
     document.getElementById('benefits').value = 
-`Join Our Beta Testing Program:
+`Start Creating Now!
 
-🚀 Early access to premium features
-💡 Shape the future of job advertising
-💰 Special launch pricing
-🎯 Priority support access
-⚡ Custom feature requests
-🤝 Direct access to development team
+🆓 Always free to use
+💻 Works on any device
+🎨 Automatic color matching
+📱 Mobile-optimized
+🔗 Link to any job post
 
-Limited spots available - sign up now to secure your place!`;
+Download your teasers & share everywhere!`;
     
     updatePreview();
 }
-
         document.getElementById('jobForm').addEventListener('submit', function(e) {
             e.preventDefault();
             updatePreview();
