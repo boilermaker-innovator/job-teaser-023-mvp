@@ -1,19 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Basic Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Create dynamic job teasers with customizable previews for effective job postings.">
     <meta name="author" content="Boilermaker Innovator">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Job Teaser Creator">
-    <meta property="og:description" content="Create dynamic job teasers with customizable previews for effective job postings.">
-    <meta property="og:image" content="https://i.ibb.co/8j0Zc9W/IMG-1435.jpg">
-
     <title>Job Teaser Creator</title>
+    
+    <!-- Color Thief Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
 </head>
 <body>
@@ -24,21 +18,21 @@
         <div class="form-container">
             <h2>Create Your Job Teaser</h2>
             <form id="jobForm">
-                <input type="text" id="jobTitle" placeholder="Job Title" required>
-                <input type="text" id="company" placeholder="Company Name" required>
-                <input type="url" id="logoUrl" placeholder="Company Logo URL" required>
-                <input type="url" id="jobUrl" placeholder="Job Application URL" required>
-                <input type="url" id="videoUrl" placeholder="YouTube Video URL (optional)">
-                <textarea id="about" placeholder="About the job" required></textarea>
-                <textarea id="responsibilities" placeholder="Responsibilities" required></textarea>
-                <textarea id="requirements" placeholder="Requirements" required></textarea>
-                <textarea id="benefits" placeholder="Benefits" required></textarea>
-                <div class="button-container">
-                    <button type="submit">Update Preview</button>
-                    <button type="button" id="clearButton">Clear Form</button>
-                    <button type="button" id="downloadButton" class="download-button">Download Teaser</button>
-                </div>
-            </form>
+    <input type="text" id="jobTitle" placeholder="Job Title" required>
+    <input type="text" id="company" placeholder="Company Name" required>
+    <input type="url" id="logoUrl" placeholder="Company Logo URL" required>
+    <input type="url" id="jobUrl" placeholder="Job Application URL" required>
+    <input type="url" id="videoUrl" placeholder="YouTube Video URL (optional)">
+    <textarea id="about" placeholder="About the job" required></textarea>
+    <textarea id="responsibilities" placeholder="Responsibilities" required></textarea>
+    <textarea id="requirements" placeholder="Requirements" required></textarea>
+    <textarea id="benefits" placeholder="Benefits" required></textarea>
+    <div class="button-container">
+        <button type="submit">Update Preview</button>
+        <button type="button" id="clearButton">Clear Form</button>
+        <button type="button" id="downloadButton" class="download-button">Download Teaser</button>
+    </div>
+</form>
         </div>
         <div class="preview-container">
             <h2 class="preview-title">Job Teaser Preview</h2>
