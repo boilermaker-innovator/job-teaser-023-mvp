@@ -268,6 +268,115 @@ Download your teasers & share everywhere!`;
         document.getElementById('previewContent').innerHTML = '';
     });
 });
+        function downloadTeaser() {
+    const previewContent = document.querySelector('.preview').innerHTML;
+    const fullStyles = document.querySelector('style').innerHTML;
+
+    const html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Job Teaser</title>
+            <style>
+                ${fullStyles}
+            </style>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+        </head>
+        <body style="padding: 20px; background-color: #f3f2ef;">
+            <div class="preview" style="max-width: 600px; margin: 0 auto;">
+                ${previewContent}
+            </div>
+            <script>
+                // Add tab switching functionality
+                function switchTab(tab) {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    document.querySelector(\`.tab:nth-child(\${['about', 'responsibilities', 'requirements', 'benefits'].indexOf(tab) + 1})\`).classList.add('active');
+                    document.getElementById(\`\${tab}-content\`).classList.add('active');
+                }
+
+                // Auto rotate tabs
+                let currentIndex = 0;
+                const tabs = ['about', 'responsibilities', 'requirements', 'benefits'];
+                setInterval(() => {
+                    switchTab(tabs[currentIndex]);
+                    currentIndex = (currentIndex + 1) % tabs.length;
+                }, 3000);
+
+                // Add click handlers to tabs
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const tabId = tab.textContent.toLowerCase();
+                        switchTab(tabId);
+                    });
+                });
+            </script>
+        </body>
+        </html>
+    `;
+function downloadTeaser() {
+    const previewContent = document.querySelector('.preview').innerHTML;
+    const fullStyles = document.querySelector('style').innerHTML;
+
+    const html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Job Teaser</title>
+            <style>
+                ${fullStyles}
+            </style>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
+        </head>
+        <body style="padding: 20px; background-color: #f3f2ef;">
+            <div class="preview" style="max-width: 600px; margin: 0 auto;">
+                ${previewContent}
+            </div>
+            <script>
+                // Add tab switching functionality
+                function switchTab(tab) {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    document.querySelector(\`.tab:nth-child(\${['about', 'responsibilities', 'requirements', 'benefits'].indexOf(tab) + 1})\`).classList.add('active');
+                    document.getElementById(\`\${tab}-content\`).classList.add('active');
+                }
+
+                // Auto rotate tabs
+                let currentIndex = 0;
+                const tabs = ['about', 'responsibilities', 'requirements', 'benefits'];
+                setInterval(() => {
+                    switchTab(tabs[currentIndex]);
+                    currentIndex = (currentIndex + 1) % tabs.length;
+                }, 3000);
+
+                // Add click handlers to tabs
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        const tabId = tab.textContent.toLowerCase();
+                        switchTab(tabId);
+                    });
+                });
+            </script>
+        </body>
+        </html>
+    `;
+
+
+    const blob = new Blob([html], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `job-teaser-${document.getElementById('jobTitle').value.toLowerCase().replace(/\s+/g, '-')}.html`;
+    document.body.appendChild(a);
+    a.click();
+    URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+}
+
+// Add the download button event listener with the other listeners
+document.getElementById('downloadButton').addEventListener('click', downloadTeaser);
     </script>
 </body>
 </html>
