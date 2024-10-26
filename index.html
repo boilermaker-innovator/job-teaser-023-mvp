@@ -193,19 +193,62 @@
             }, 3000);
         }
 
-        function prefillForm() {
-            document.getElementById('jobTitle').value = 'Software Engineer';
-            document.getElementById('company').value = 'Tech Solutions Inc.';
-            document.getElementById('logoUrl').value = 'https://i.ibb.co/NWxR3hk/IMG-1458.jpg';
-            document.getElementById('jobUrl').value = 'https://example.com/apply';
-            document.getElementById('videoUrl').value = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-            document.getElementById('about').value = 'Join our innovative team to develop cutting-edge applications.';
-            document.getElementById('responsibilities').value = 'Design and implement new features for our platform.';
-            document.getElementById('requirements').value = 'Proven experience in software development.';
-            document.getElementById('benefits').value = 'Flexible working hours, health insurance.';
-            
-            updatePreview();
-        }
+      function prefillForm() {
+    // Company branding
+    document.getElementById('jobTitle').value = 'Job Teaser Creator - Beta Testing';
+    document.getElementById('company').value = 'Next Gen Job Ads';
+    document.getElementById('logoUrl').value = 'https://i.ibb.co/NWxR3hk/IMG-1458.jpg';  // Keep your existing logo
+    document.getElementById('jobUrl').value = '#beta-signup';  // Replace with your actual signup URL
+    document.getElementById('videoUrl').value = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';  // Replace with your demo video
+
+    // Main content sections
+    document.getElementById('about').value = 
+`Transform how you share job opportunities! 
+
+Traditional job posts are losing potential candidates' attention. Our Job Teaser Creator helps you create engaging, shareable job previews in minutes.
+
+✨ Create once, share everywhere
+🎯 Attract better candidates
+⚡ Stand out from the crowd`;
+
+    document.getElementById('responsibilities').value = 
+`Current Problems We Solve:
+
+❌ Low engagement with traditional job posts
+❌ Time wasted on unqualified applications
+❌ Difficulty standing out in crowded job boards
+❌ Limited social media sharing options
+❌ Inconsistent branding across platforms
+
+These challenges cost recruiters time and companies money. Job Teasers provide a modern solution.`;
+
+    document.getElementById('requirements').value = 
+`What Makes Job Teasers Different:
+
+🎨 Dynamic color matching with company branding
+🔄 Auto-rotating content sections
+🎥 Embedded video capabilities
+📱 Mobile-optimized design
+🎯 One-click application process
+📊 Built-in engagement tracking
+🔗 Social media optimized
+
+No coding required - create professional job teasers in minutes!`;
+
+    document.getElementById('benefits').value = 
+`Join Our Beta Testing Program:
+
+🚀 Early access to premium features
+💡 Shape the future of job advertising
+💰 Special launch pricing
+🎯 Priority support access
+⚡ Custom feature requests
+🤝 Direct access to development team
+
+Limited spots available - sign up now to secure your place!`;
+    
+    updatePreview();
+}
 
         document.getElementById('jobForm').addEventListener('submit', function(e) {
             e.preventDefault();
