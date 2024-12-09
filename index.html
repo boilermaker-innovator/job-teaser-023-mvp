@@ -1,494 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Create dynamic job teasers with customizable previews for effective job postings.">
-    <meta name="author" content="Boilermaker Innovator">
-    <title>Job Teaser Creator</title>
-    
-    <!-- Color Thief Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
-</head>
-<body>
-    <div class="header">
-        <h1>Job Teaser Creator</h1>
-    </div>
-    <div class="container">
-        <div class="form-container">
-            <h2>Create Your Job Teaser</h2>
-            <form id="jobForm">
-    <input type="text" id="jobTitle" placeholder="Job Title" required>
-    <input type="text" id="company" placeholder="Company Name" required>
-    <input type="url" id="logoUrl" placeholder="Company Logo URL" required>
-    <input type="url" id="jobUrl" placeholder="Job Application URL" required>
-    <input type="url" id="videoUrl" placeholder="YouTube Video URL (optional)">
-    <textarea id="about" placeholder="About the job" required></textarea>
-    <textarea id="responsibilities" placeholder="Responsibilities" required></textarea>
-    <textarea id="requirements" placeholder="Requirements" required></textarea>
-    <textarea id="benefits" placeholder="Benefits" required></textarea>
-    <div class="button-container">
-        <button type="submit">Update Preview</button>
-        <button type="button" id="clearButton">Clear Form</button>
-        <button type="button" id="downloadButton" class="download-button">Download Teaser</button>
-    </div>
-</form>
-        </div>
-        <div class="preview-container">
-            <h2 class="preview-title">Job Teaser Preview</h2>
-            <div class="preview">
-                <div id="previewContent"></div>
-            </div>
-        </div>
-    </div>
-    <style>
-    :root {
-        --primary-color: #0A66C2;  /* LinkedIn blue */
-        --primary-hover: #004182;
-        --success-color: #28a745;  /* Green for download */
-        --success-hover: #218838;
-        --background: #f3f2ef;
-        --border: #e0e0e0;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Teaser</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    body { 
-        font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        line-height: 1.6;
-        margin: 0;
-        padding: 0;
-        background-color: var(--background);
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      padding: 2rem;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      max-width: 42rem;
+      background: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      overflow: hidden;
+      width: 100%;
     }
 
     .header {
-        background-color: var(--primary-color);
-        color: white;
-        padding: 20px 0;
-        text-align: center;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      background: linear-gradient(to right, #16a34a, #15803d);
+      padding: 1rem;
     }
 
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
+    .edit-button {
+      display: block;
+      margin-left: auto;
+      margin-bottom: 0.5rem;
+      background: white;
+      color: #16a34a;
+      border: none;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      cursor: pointer;
     }
 
-    .form-container {
-        background-color: white;
-        padding: 24px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        flex: 1 1 500px;
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
 
-    .preview-container {
-        flex: 1 1 500px;
+    .logo {
+      width: 4rem;
+      height: 4rem;
+      background: white;
+      border-radius: 0.5rem;
+      padding: 0.5rem;
     }
 
-    h1, h2 {
-        margin: 0;
-        font-weight: 600;
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
 
-    h1 { font-size: 24px; }
-    h2 { 
-        color: var(--primary-color);
-        font-size: 20px;
-        margin-bottom: 20px;
+    .title-section {
+      flex: 1;
     }
 
-    input, textarea {
-        width: 100%;
-        margin-bottom: 16px;
-        padding: 12px;
-        border: 1px solid var(--border);
-        border-radius: 4px;
-        box-sizing: border-box;
-        font-size: 14px;
-        transition: border-color 0.3s;
+    .title {
+      color: white;
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 0.25rem;
     }
 
-    input:focus, textarea:focus {
-        outline: none;
-        border-color: var(--primary-color);
+    .tagline {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.875rem;
     }
 
-    textarea {
-        height: 100px;
-        resize: vertical;
-    }
-
-    .button-container {
-        display: flex;
-        gap: 10px;
-        margin-top: 20px;
-    }
-
-    button {
-        padding: 12px 24px;
-        color: white;
-        border: none;
-        border-radius: 24px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        font-weight: 600;
-        font-size: 16px;
-        background-color: var(--primary-color);
-        flex: 1;
-    }
-
-    button:hover {
-        background-color: var(--primary-hover);
-    }
-
-    .download-button {
-        background-color: var(--success-color);
-    }
-
-    .download-button:hover {
-        background-color: var(--success-hover);
-    }
-
-    .preview {
-        background-color: white;
-        padding: 24px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        border: 3px solid var(--primary-color);
-    }
-
-    .tab-container {
-        display: flex;
-        background-color: var(--background);
-        border-bottom: 1px solid var(--border);
-        border-radius: 4px 4px 0 0;
-        overflow: hidden;
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #e5e7eb;
     }
 
     .tab {
-        padding: 12px 16px;
-        cursor: pointer;
-        background: white;
-        border: none;
-        transition: all 0.3s;
-        font-weight: 600;
-        color: var(--primary-color);
-        flex: 1;
-        text-align: center;
-    }
-
-    .tab:hover {
-        background-color: #f8f9fa;
+      flex: 1;
+      padding: 0.5rem;
+      text-align: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #4b5563;
+      position: relative;
     }
 
     .tab.active {
-        background: var(--primary-color);
-        color: white;
+      color: #16a34a;
+    }
+
+    .tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #16a34a;
+    }
+
+    .tab:hover:not(.active) {
+      background: #f9fafb;
     }
 
     .tab-content {
-        display: none;
-        padding: 16px;
-        border: 1px solid var(--border);
-        border-top: none;
-        background-color: white;
+      padding: 1.5rem;
+      text-align: center;
     }
 
-    .tab-content.active {
-        display: block;
+    .tab-panel:not(.active) {
+      display: none;
     }
 
-    .job-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 20px;
+    .tab-panel h3 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: #111827;
     }
 
-    .job-logo {
-        width: 120px;
-        height: 120px;
-        object-fit: contain;
-        margin-right: 20px;
-        border: 1px solid var(--border);
-        border-radius: 4px;
-        padding: 4px;
-        background: white;
+    .tab-panel p {
+      color: #4b5563;
+      line-height: 1.5;
     }
 
-    .apply-button {
-        display: block;
-        width: 100%;
-        padding: 12px;
-        background-color: var(--primary-color) !important;
-        color: white;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 24px;
-        font-weight: 600;
-        margin-top: 20px;
-        transition: background-color 0.3s;
+    .demo-image {
+      max-height: 300px;
+      margin: 1rem auto 0;
+      display: block;
     }
 
-    .apply-button:hover {
-        background-color: var(--primary-hover) !important;
-        text-decoration: none;
-        color: white;
+    .upload-status {
+      padding: 0.5rem;
+      text-align: center;
+      color: white;
     }
 
-    @media (max-width: 768px) {
-        .container {
-            padding: 10px;
-        }
-        
-        .button-container {
-            flex-direction: column;
-        }
-        
-        .job-header {
-            flex-direction: column;
-            text-align: center;
-        }
-        
-        .job-logo {
-            margin: 0 auto 20px;
-        }
+    .upload-status.loading {
+      background: #3b82f6;
     }
-</style>
+
+    .upload-status.error {
+      background: #ef4444;
+    }
+
+    /* Edit mode styles */
+    .edit-mode input[type="text"],
+    .edit-mode textarea {
+      width: 100%;
+      padding: 0.25rem 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.25rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .edit-mode .demo-upload {
+      border: 2px dashed #d1d5db;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      cursor: pointer;
+    }
+
+    .edit-mode .demo-upload:hover {
+      border-color: #16a34a;
+    }
+
+    .edit-mode .upload-hint {
+      color: #6b7280;
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <button class="edit-button">Edit</button>
+      <div class="header-content">
+        <div class="logo">
+          <img src="/api/placeholder/150/150" alt="Logo">
+        </div>
+        <div class="title-section">
+          <h2 class="title">Share Stories Better</h2>
+          <p class="tagline">Interactive content that captures attention</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active">💡 Problem</button>
+      <button class="tab">✨ Solution</button>
+      <button class="tab">🎯 Impact</button>
+      <button class="tab">🎬 Demo</button>
+    </div>
+
+    <div class="tab-content">
+      <div class="tab-panel active">
+        <h3>Content Gets Lost</h3>
+        <p>93% of social media updates go unnoticed.</p>
+      </div>
+
+      <div class="tab-panel">
+        <h3>Make Content Interactive</h3>
+        <p>Transform content into engaging experiences.</p>
+      </div>
+
+      <div class="tab-panel">
+        <h3>See Results</h3>
+        <p>3x higher engagement rates.</p>
+      </div>
+
+      <div class="tab-panel">
+        <h3>Watch It Work</h3>
+        <p>See it in action</p>
+        <img src="/api/placeholder/400/300" alt="Demo" class="demo-image">
+      </div>
+    </div>
+  </div>
+
   <script>
-    const colorThief = new ColorThief();
-    let tabs = ['about', 'responsibilities', 'requirements', 'benefits'];
-    let currentTabIndex = 0;
-    let rotationInterval;
-    let rotationComplete = false;
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.tab-panel');
+    const editButton = document.querySelector('.edit-button');
+    const card = document.querySelector('.card');
+    let autoRotateInterval;
+    let currentTab = 0;
 
-    function updatePreview() {
-        const title = document.getElementById('jobTitle').value;
-        const company = document.getElementById('company').value;
-        const logoUrl = document.getElementById('logoUrl').value;
-        const jobUrl = document.getElementById('jobUrl').value;
-        const videoUrl = document.getElementById('videoUrl').value;
-        
-        tabs = ['about', 'responsibilities', 'requirements', 'benefits'];
-        if (videoUrl.trim() !== '') {
-            tabs.push('video');
+    // Tab switching functionality
+    function switchTab(index) {
+      tabs.forEach(tab => tab.classList.remove('active'));
+      panels.forEach(panel => panel.classList.remove('active'));
+      tabs[index].classList.add('active');
+      panels[index].classList.add('active');
+      currentTab = index;
+    }
+
+    // Auto-rotate functionality
+    function startAutoRotate() {
+      if (autoRotateInterval) clearInterval(autoRotateInterval);
+      autoRotateInterval = setInterval(() => {
+        currentTab = (currentTab + 1) % tabs.length;
+        switchTab(currentTab);
+      }, 3000);
+    }
+
+    // Add click listeners to tabs
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => {
+        switchTab(index);
+        if (!card.classList.contains('edit-mode')) {
+          clearInterval(autoRotateInterval);
+          startAutoRotate();
         }
-        currentTabIndex = 0;
-        rotationComplete = false;
-        
-        let tabsHtml = '<div class="tab-container">';
-        let contentHtml = '';
-        
-        tabs.forEach((tab, index) => {
-            tabsHtml += `<div class="tab${index === 0 ? ' active' : ''}" onclick="manualTabSwitch('${tab}')">${tab.charAt(0).toUpperCase() + tab.slice(1)}</div>`;
-            if (tab === 'video') {
-                const videoId = extractVideoId(videoUrl);
-                contentHtml += `
-                    <div id="${tab}-content" class="tab-content${index === 0 ? ' active' : ''}">
-                        <iframe width="100%" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                    </div>
-                `;
-            } else {
-                contentHtml += `
-                    <div id="${tab}-content" class="tab-content${index === 0 ? ' active' : ''}">
-                        <p>${document.getElementById(tab).value.replace(/\n/g, '<br>')}</p>
-                    </div>
-                `;
-            }
-        });
-        
-        tabsHtml += '</div>';
-        
-        document.getElementById('previewContent').innerHTML = `
-            <div class="job-header">
-                <img src="${logoUrl}" alt="${company} logo" class="job-logo" crossorigin="anonymous">
-                <div>
-                    <h2>${title}</h2>
-                    <h3>${company}</h3>
-                </div>
-            </div>
-            ${tabsHtml}
-            ${contentHtml}
-            <a href="${jobUrl}" class="apply-button" target="_blank">Apply Now</a>
-        `;
-
-        startRotation();
-        extractAndApplyColors();
-    }
-
-    function extractAndApplyColors() {
-        const img = document.querySelector('.job-logo');
-        img.crossOrigin = 'Anonymous';
-        img.onload = function() {
-            const dominantColor = colorThief.getColor(img);
-            const preview = document.querySelector('.preview');
-            preview.style.borderColor = `rgb(${dominantColor.join(',')})`;
-        };
-    }
-
-    function extractVideoId(url) {
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-        const match = url.match(regExp);
-        return (match && match[2].length === 11) ? match[2] : null;
-    }
-
-    function manualTabSwitch(tab) {
-        clearInterval(rotationInterval);
-        switchTab(tab);
-        rotationComplete = true;
-    }
-
-    function switchTab(tab) {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-        document.querySelector(`.tab:nth-child(${tabs.indexOf(tab) + 1})`).classList.add('active');
-        document.getElementById(`${tab}-content`).classList.add('active');
-    }
-
-    function startRotation() {
-        clearInterval(rotationInterval);
-        rotationInterval = setInterval(() => {
-            if (!rotationComplete) {
-                const currentTab = tabs[currentTabIndex];
-                switchTab(currentTab);
-                currentTabIndex = (currentTabIndex + 1) % tabs.length;
-                if (currentTabIndex === 0) rotationComplete = true;
-            } else {
-                clearInterval(rotationInterval);
-            }
-        }, 3000);
-    }
-
-    function prefillForm() {
-        document.getElementById('jobTitle').value = 'Create Free Job Teasers Now';
-        document.getElementById('company').value = 'For Recruiters & Hiring Managers';
-        document.getElementById('logoUrl').value = 'https://i.ibb.co/NWxR3hk/IMG-1458.jpg';
-        document.getElementById('jobUrl').value = '#download-teaser';
-        document.getElementById('videoUrl').value = '';
-        
-        document.getElementById('about').value = 
-`🚀 Free Tool for Modern Recruiters!
-
-Create eye-catching job teasers for your existing job posts. Perfect for sharing on LinkedIn, Facebook, and Twitter.
-
-✨ No account needed
-💾 Saves locally to your device
-🎯 Use with any job site`;
-
-        document.getElementById('responsibilities').value = 
-`Why Use Job Teasers?
-
-📊 Stand out in social feeds
-🎯 Drive traffic to your job posts
-⏱️ Create in under 2 minutes
-🌟 Works with all job boards
-🔄 Easy to update and reshare
-
-Keep your posts & applications on your preferred platform!`;
-
-        document.getElementById('requirements').value = 
-`How It Works:
-
-1. Enter your job details
-2. Add your company branding
-3. Download your teaser
-4. Share anywhere!
-
-Features:
-✅ Works offline
-✅ No data stored online
-✅ Download & keep forever
-✅ Use with any job board
-✅ Full creative control`;
-
-        document.getElementById('benefits').value = 
-`Start Creating Now!
-
-🆓 Always free to use
-💻 Works on any device
-🎨 Automatic color matching
-📱 Mobile-optimized
-🔗 Link to any job post
-
-Download your teasers & share everywhere!`;
-        
-        updatePreview();
-    }
-
-    function downloadTeaser() {
-        const previewContent = document.querySelector('.preview').innerHTML;
-        const fullStyles = document.querySelector('style').innerHTML;
-
-        const html = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <meta charset="UTF-8">
-                <title>Job Teaser</title>
-                <style>${fullStyles}</style>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.0/color-thief.umd.js"></script>
-            </head>
-            <body style="padding: 20px; background-color: #f3f2ef;">
-                <div class="preview" style="max-width: 600px; margin: 0 auto;">
-                    ${previewContent}
-                </div>
-                <script>
-                    function switchTab(tab) {
-                        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                        document.querySelector(\`.tab:nth-child(\${['about', 'responsibilities', 'requirements', 'benefits'].indexOf(tab) + 1})\`).classList.add('active');
-                        document.getElementById(\`\${tab}-content\`).classList.add('active');
-                    }
-
-                    let currentIndex = 0;
-                    const tabs = ['about', 'responsibilities', 'requirements', 'benefits'];
-                    setInterval(() => {
-                        switchTab(tabs[currentIndex]);
-                        currentIndex = (currentIndex + 1) % tabs.length;
-                    }, 3000);
-
-                    document.querySelectorAll('.tab').forEach(tab => {
-                        tab.addEventListener('click', () => {
-                            const tabId = tab.textContent.toLowerCase();
-                            switchTab(tabId);
-                        });
-                    });
-                </script>
-            </body>
-            </html>
-        `;
-
-        const blob = new Blob([html], { type: 'text/html' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `job-teaser-${document.getElementById('jobTitle').value.toLowerCase().replace(/\s+/g, '-')}.html`;
-        document.body.appendChild(a);
-        a.click();
-        URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-    }
-
-    // Event Listeners
-document.addEventListener('DOMContentLoaded', () => {
-    // Run prefill immediately
-    prefillForm();
-    
-    document.getElementById('jobForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        updatePreview();
+      });
     });
 
-    document.getElementById('clearButton').addEventListener('click', () => {
-        document.getElementById('jobForm').reset();
-        document.getElementById('previewContent').innerHTML = '';
+    // Toggle edit mode
+    editButton.addEventListener('click', () => {
+      const isEditing = card.classList.toggle('edit-mode');
+      editButton.textContent = isEditing ? 'Save' : 'Edit';
+      
+      if (isEditing) {
+        clearInterval(autoRotateInterval);
+      } else {
+        startAutoRotate();
+      }
     });
-    
-    document.getElementById('downloadButton').addEventListener('click', downloadTeaser);
-});
-</script>
+
+    // Start auto-rotate on load
+    startAutoRotate();
+  </script>
 </body>
-</html>  
-    
+</html>
