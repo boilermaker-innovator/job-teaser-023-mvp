@@ -1,288 +1,276 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Content Teaser</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+import { useState, useEffect } from 'react';
+import { Card, CardContent } from '@/components/ui/card';
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #f5f5f5;
-      padding: 2rem;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+const IMGBB_API_KEY = '59cd5b2935b5b01bc744b5b0a1d26ee0';
 
-    .card {
-      max-width: 42rem;
-      background: white;
-      border-radius: 0.5rem;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      overflow: hidden;
-      width: 100%;
-    }
+const ContentTeaser = () => {
+  const [activeTab, setActiveTab] = useState(0);
+  const [isEditing, setIsEditing] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState({ loading: false, error: null });
 
-    .header {
-      background: linear-gradient(to right, #16a34a, #15803d);
-      padding: 1rem;
-    }
-
-    .edit-button {
-      display: block;
-      margin-left: auto;
-      margin-bottom: 0.5rem;
-      background: white;
-      color: #16a34a;
-      border: none;
-      padding: 0.25rem 0.75rem;
-      border-radius: 0.375rem;
-      font-size: 0.875rem;
-      cursor: pointer;
-    }
-
-    .header-content {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .logo {
-      width: 4rem;
-      height: 4rem;
-      background: white;
-      border-radius: 0.5rem;
-      padding: 0.5rem;
-    }
-
-    .logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .title-section {
-      flex: 1;
-    }
-
-    .title {
-      color: white;
-      font-size: 1.25rem;
-      font-weight: bold;
-      margin-bottom: 0.25rem;
-    }
-
-    .tagline {
-      color: rgba(255, 255, 255, 0.9);
-      font-size: 0.875rem;
-    }
-
-    .tabs {
-      display: flex;
-      border-bottom: 1px solid #e5e7eb;
-    }
-
-    .tab {
-      flex: 1;
-      padding: 0.5rem;
-      text-align: center;
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #4b5563;
-      position: relative;
-    }
-
-    .tab.active {
-      color: #16a34a;
-    }
-
-    .tab.active::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: #16a34a;
-    }
-
-    .tab:hover:not(.active) {
-      background: #f9fafb;
-    }
-
-    .tab-content {
-      padding: 1.5rem;
-      text-align: center;
-    }
-
-    .tab-panel:not(.active) {
-      display: none;
-    }
-
-    .tab-panel h3 {
-      font-size: 1.25rem;
-      margin-bottom: 1rem;
-      color: #111827;
-    }
-
-    .tab-panel p {
-      color: #4b5563;
-      line-height: 1.5;
-    }
-
-    .demo-image {
-      max-height: 300px;
-      margin: 1rem auto 0;
-      display: block;
-    }
-
-    .upload-status {
-      padding: 0.5rem;
-      text-align: center;
-      color: white;
-    }
-
-    .upload-status.loading {
-      background: #3b82f6;
-    }
-
-    .upload-status.error {
-      background: #ef4444;
-    }
-
-    /* Edit mode styles */
-    .edit-mode input[type="text"],
-    .edit-mode textarea {
-      width: 100%;
-      padding: 0.25rem 0.5rem;
-      border: 1px solid #d1d5db;
-      border-radius: 0.25rem;
-      margin-bottom: 0.25rem;
-    }
-
-    .edit-mode .demo-upload {
-      border: 2px dashed #d1d5db;
-      border-radius: 0.5rem;
-      padding: 1rem;
-      cursor: pointer;
-    }
-
-    .edit-mode .demo-upload:hover {
-      border-color: #16a34a;
-    }
-
-    .edit-mode .upload-hint {
-      color: #6b7280;
-      margin-top: 0.5rem;
-      font-size: 0.875rem;
-    }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <div class="header">
-      <button class="edit-button">Edit</button>
-      <div class="header-content">
-        <div class="logo">
-          <img src="/api/placeholder/150/150" alt="Logo">
-        </div>
-        <div class="title-section">
-          <h2 class="title">Share Stories Better</h2>
-          <p class="tagline">Interactive content that captures attention</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="tabs">
-      <button class="tab active">💡 Problem</button>
-      <button class="tab">✨ Solution</button>
-      <button class="tab">🎯 Impact</button>
-      <button class="tab">🎬 Demo</button>
-    </div>
-
-    <div class="tab-content">
-      <div class="tab-panel active">
-        <h3>Content Gets Lost</h3>
-        <p>93% of social media updates go unnoticed.</p>
-      </div>
-
-      <div class="tab-panel">
-        <h3>Make Content Interactive</h3>
-        <p>Transform content into engaging experiences.</p>
-      </div>
-
-      <div class="tab-panel">
-        <h3>See Results</h3>
-        <p>3x higher engagement rates.</p>
-      </div>
-
-      <div class="tab-panel">
-        <h3>Watch It Work</h3>
-        <p>See it in action</p>
-        <img src="/api/placeholder/400/300" alt="Demo" class="demo-image">
-      </div>
-    </div>
-  </div>
-
-  <script>
-    const tabs = document.querySelectorAll('.tab');
-    const panels = document.querySelectorAll('.tab-panel');
-    const editButton = document.querySelector('.edit-button');
-    const card = document.querySelector('.card');
-    let autoRotateInterval;
-    let currentTab = 0;
-
-    // Tab switching functionality
-    function switchTab(index) {
-      tabs.forEach(tab => tab.classList.remove('active'));
-      panels.forEach(panel => panel.classList.remove('active'));
-      tabs[index].classList.add('active');
-      panels[index].classList.add('active');
-      currentTab = index;
-    }
-
-    // Auto-rotate functionality
-    function startAutoRotate() {
-      if (autoRotateInterval) clearInterval(autoRotateInterval);
-      autoRotateInterval = setInterval(() => {
-        currentTab = (currentTab + 1) % tabs.length;
-        switchTab(currentTab);
-      }, 3000);
-    }
-
-    // Add click listeners to tabs
-    tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => {
-        switchTab(index);
-        if (!card.classList.contains('edit-mode')) {
-          clearInterval(autoRotateInterval);
-          startAutoRotate();
-        }
-      });
-    });
-
-    // Toggle edit mode
-    editButton.addEventListener('click', () => {
-      const isEditing = card.classList.toggle('edit-mode');
-      editButton.textContent = isEditing ? 'Save' : 'Edit';
-      
-      if (isEditing) {
-        clearInterval(autoRotateInterval);
-      } else {
-        startAutoRotate();
+  const [content, setContent] = useState({
+    title: "Share Stories Better",
+    tagline: "Interactive content that captures attention",
+    images: {
+      logo: "/api/placeholder/150/150",
+      demo: "/api/placeholder/400/300",
+    },
+    tabs: [
+      {
+        id: 1,
+        label: "💡 Problem",
+        heading: "Content Gets Lost",
+        text: "93% of social media updates go unnoticed."
+      },
+      {
+        id: 2,
+        label: "✨ Solution", 
+        heading: "Make Content Interactive",
+        text: "Transform content into engaging experiences."
+      },
+      {
+        id: 3,
+        label: "🎯 Impact",
+        heading: "See Results",
+        text: "3x higher engagement rates."
+      },
+      {
+        id: 4,
+        label: "🎬 Demo",
+        heading: "Watch It Work",
+        text: "See it in action"
       }
-    });
+    ]
+  });
 
-    // Start auto-rotate on load
-    startAutoRotate();
-  </script>
-</body>
-</html>
+  // Image upload handler
+  const handleImageUpload = async (event, type) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setUploadStatus({ loading: true, error: null });
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+      
+      if (data.success) {
+        setContent(prev => ({
+          ...prev,
+          images: {
+            ...prev.images,
+            [type]: data.data.url
+          }
+        }));
+        setUploadStatus({ loading: false, error: null });
+      } else {
+        throw new Error('Upload failed');
+      }
+    } catch (error) {
+      setUploadStatus({ loading: false, error: error.message });
+    }
+  };
+
+  // Content update handler
+  const handleContentUpdate = (field, value, tabIndex = null) => {
+    if (tabIndex !== null) {
+      setContent(prev => ({
+        ...prev,
+        tabs: prev.tabs.map((tab, idx) => 
+          idx === tabIndex ? { ...tab, ...value } : tab
+        )
+      }));
+    } else {
+      setContent(prev => ({
+        ...prev,
+        [field]: value
+      }));
+    }
+  };
+
+  // Auto-rotate tabs
+  useEffect(() => {
+    if (!isEditing) {
+      const interval = setInterval(() => {
+        setActiveTab(prev => (prev + 1) % content.tabs.length);
+      }, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [isEditing, content.tabs.length]);
+
+  return (
+    <Card className="max-w-2xl mx-auto">
+      <CardContent className="p-0">
+        {/* Status Messages */}
+        {uploadStatus.loading && (
+          <div className="bg-blue-500 text-white p-2 text-center">
+            Uploading...
+          </div>
+        )}
+        {uploadStatus.error && (
+          <div className="bg-red-500 text-white p-2 text-center">
+            {uploadStatus.error}
+          </div>
+        )}
+
+        {/* Header */}
+        <div className="bg-gradient-to-r from-green-600 to-green-700 p-4">
+          <div className="flex justify-end mb-2">
+            <button
+              onClick={() => setIsEditing(!isEditing)}
+              className="bg-white text-green-600 px-3 py-1 rounded-md text-sm"
+            >
+              {isEditing ? "Save" : "Edit"}
+            </button>
+          </div>
+          
+          <div className="flex items-center gap-4">
+            <div className="relative w-16 h-16">
+              {isEditing ? (
+                <label className="cursor-pointer">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => handleImageUpload(e, 'logo')}
+                  />
+                  <div className="w-16 h-16 bg-white rounded-lg flex items-center justify-center">
+                    <img 
+                      src={content.images.logo} 
+                      alt="Logo" 
+                      className="max-w-full max-h-full p-2"
+                    />
+                  </div>
+                </label>
+              ) : (
+                <img 
+                  src={content.images.logo} 
+                  alt="Logo"
+                  className="w-16 h-16 bg-white rounded-lg p-2"
+                />
+              )}
+            </div>
+
+            <div className="flex-1">
+              {isEditing ? (
+                <>
+                  <input
+                    type="text"
+                    value={content.title}
+                    onChange={(e) => handleContentUpdate('title', e.target.value)}
+                    className="w-full bg-white text-gray-800 p-1 mb-1 rounded"
+                  />
+                  <input
+                    type="text"
+                    value={content.tagline}
+                    onChange={(e) => handleContentUpdate('tagline', e.target.value)}
+                    className="w-full bg-white text-gray-800 p-1 rounded text-sm"
+                  />
+                </>
+              ) : (
+                <>
+                  <h2 className="text-white text-xl font-bold">{content.title}</h2>
+                  <p className="text-white/90 text-sm">{content.tagline}</p>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Tabs */}
+        <div className="flex">
+          {content.tabs.map((tab, idx) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(idx)}
+              className={`flex-1 p-2 text-center transition-colors 
+                ${activeTab === idx 
+                  ? 'text-green-600 border-b-2 border-green-600' 
+                  : 'text-gray-600 hover:bg-gray-50'
+                }`}
+            >
+              {isEditing ? (
+                <input
+                  type="text"
+                  value={tab.label}
+                  onChange={(e) => handleContentUpdate(null, { label: e.target.value }, idx)}
+                  className="w-full text-center"
+                />
+              ) : (
+                tab.label
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Tab Content */}
+        <div className="p-6">
+          {content.tabs.map((tab, idx) => (
+            <div
+              key={tab.id}
+              className={`${activeTab === idx ? 'block' : 'hidden'}`}
+            >
+              {isEditing ? (
+                <>
+                  <input
+                    type="text"
+                    value={tab.heading}
+                    onChange={(e) => handleContentUpdate(null, { heading: e.target.value }, idx)}
+                    className="w-full text-xl font-bold mb-4 text-center"
+                  />
+                  <textarea
+                    value={tab.text}
+                    onChange={(e) => handleContentUpdate(null, { text: e.target.value }, idx)}
+                    className="w-full min-h-[100px] p-2 text-center"
+                  />
+                </>
+              ) : (
+                <>
+                  <h3 className="text-xl font-bold mb-4 text-center">{tab.heading}</h3>
+                  <p className="text-center text-gray-600">{tab.text}</p>
+                </>
+              )}
+
+              {idx === 3 && (
+                <div className="mt-4">
+                  {isEditing ? (
+                    <label className="cursor-pointer block">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => handleImageUpload(e, 'demo')}
+                      />
+                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-green-500">
+                        <img 
+                          src={content.images.demo} 
+                          alt="Demo"
+                          className="max-h-[300px] mx-auto"
+                        />
+                        <p className="text-center text-gray-500 mt-2">Click to upload demo image</p>
+                      </div>
+                    </label>
+                  ) : (
+                    <img 
+                      src={content.images.demo} 
+                      alt="Demo"
+                      className="max-h-[300px] mx-auto"
+                    />
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default ContentTeaser;
