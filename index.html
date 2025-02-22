@@ -1,4 +1,486 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iTabs: Bridging Digital Experiences</title>
+    <style>
+        :root {
+            --primary-color: #2962ff;
+            --secondary-color: #0039cb;
+            --light-bg: #f5f8ff;
+            --dark-text: #263238;
+            --light-text: #ffffff;
+            --tab-inactive: #e1e6f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--dark-text);
+            background-color: #f0f2f5;
+            line-height: 1.6;
+        }
+        
+        .teaser-container {
+            max-width: 500px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .teaser-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--light-text);
+            padding: 30px 25px;
+            position: relative;
+        }
+        
+        .teaser-logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .i-icon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 36px;
+            height: 36px;
+            background-color: var(--light-text);
+            color: var(--primary-color);
+            border-radius: 50%;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 22px;
+            margin-right: 10px;
+        }
+        
+        .teaser-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: -0.5px;
+        }
+        
+        .teaser-subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        .tabs {
+            display: flex;
+            background-color: var(--light-bg);
+        }
+        
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 14px 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--dark-text);
+            background-color: var(--tab-inactive);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            color: var(--primary-color);
+            background-color: white;
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 25px;
+            height: 280px;
+            overflow-y: auto;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .concept-illustration {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+        
+        .concept-arrow {
+            display: flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-size: 24px;
+        }
+        
+        .concept-box {
+            background: var(--light-bg);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            width: 45%;
+        }
+        
+        /* iTabs Demo Styles */
+        .demo-itab {
+            display: inline-flex;
+            align-items: center;
+            margin: 0 5px;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .demo-i {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 20px;
+            height: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-style: italic;
+            font-weight: bold;
+            font-size: 12px;
+            margin-left: 4px;
+        }
+        
+        .demo-popup {
+            display: none;
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            width: 250px;
+            z-index: 100;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .demo-popup:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid white;
+        }
+        
+        .demo-popup p {
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        .demo-popup-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+        
+        .demo-itab:hover .demo-popup {
+            display: block;
+        }
+        
+        h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        .emotion-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .emotion-item {
+            display: flex;
+            align-items: center;
+            background: var(--light-bg);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .emotion-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .platform-item {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .cta-button {
+            display: block;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            padding: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="teaser-container">
+        <div class="teaser-header">
+            <div class="teaser-logo">
+                <span class="i-icon">i</span>
+                <h1 class="teaser-title">iTabs</h1>
+            </div>
+            <p class="teaser-subtitle">Bridging the gaps in digital experience</p>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="concept">Concept</div>
+            <div class="tab" data-tab="applications">Applications</div>
+            <div class="tab" data-tab="emotions">Emotions</div>
+            <div class="tab" data-tab="future">Future</div>
+        </div>
+        
+        <div id="concept" class="tab-content active">
+            <h3>The Digital Bridge</h3>
+            <p>iTabs transforms the humble information icon (i) into a powerful bridge connecting fragmented digital experiences.</p>
+            
+            <div class="concept-illustration">
+                <div class="concept-box">Surface Engagement</div>
+                <div class="concept-arrow">→</div>
+                <div class="concept-box">Deep Understanding</div>
+            </div>
+            
+            <p>Our innovation creates seamless pathways between:</p>
+            <ul>
+                <li><strong>Quick impressions</strong> and <span class="demo-itab">detailed information<span class="demo-i">i</span>
+                    <div class="demo-popup">
+                        <div class="demo-popup-title">Detailed Information</div>
+                        <p>iTabs provide rich, contextual information without disrupting the user's flow or requiring navigation away from the current page.</p>
+                    </div>
+                </span></li>
+                <li><strong>Official messaging</strong> and <span class="demo-itab">community reality<span class="demo-i">i</span>
+                    <div class="demo-popup">
+                        <div class="demo-popup-title">Community Reality</div>
+                        <p>See authentic feedback and experiences from real users, creating trust through transparency and genuine perspectives.</p>
+                    </div>
+                </span></li>
+                <li><strong>Casual browsing</strong> and <span class="demo-itab">meaningful action<span class="demo-i">i</span>
+                    <div class="demo-popup">
+                        <div class="demo-popup-title">Meaningful Action</div>
+                        <p>Convert interest into engagement with clear, contextual calls to action that appear exactly when users show interest.</p>
+                    </div>
+                </span></li>
+            </ul>
+            <p>All through the universally recognized information symbol, enhanced with rich, contextual content display.</p>
+        </div>
+        
+        <div id="applications" class="tab-content">
+            <h3>Versatile Applications</h3>
+            <p>The iTabs system creates value across multiple contexts:</p>
+            
+            <div class="platform-grid">
+                <div class="platform-item demo-itab">
+                    <h4>E-Commerce<span class="demo-i">i</span></h4>
+                    <p>Rich product details without cluttering listings</p>
+                    <div class="demo-popup">
+                        <div class="demo-popup-title">E-Commerce iTabs</div>
+                        <p>Display product specifications, user reviews, sizing charts, and comparison features without cluttering your product listings.</p>
+                    </div>
+                </div>
+                <div class="platform-item demo-itab">
+                    <h4>Job Recruitment<span class="demo-i">i</span></h4>
+                    <p>Comprehensive position information in compact format</p>
+                    <div class="demo-popup">
+                        <div class="demo-popup-title">Recruitment iTabs</div>
+                        <p>Share detailed job requirements, company culture, employee testimonials, and application process in an easily digestible format.</p>
+                    </div>
+                </div>
+                <div class="platform-item demo-itab">
+                    <h4>Charity<span class="demo-i">i</span></h4>
+                    <p>Authentic impact stories and transparent fund usage</p>
+                    <div class="demo-popup">
+                        <div class="demo-popup-title">Charity iTabs</div>
+                        <p>Showcase real impact stories, detailed fund allocation, upcoming initiatives, and simple donation options all in one place.</p>
+                    </div>
+                </div>
+                <div class="platform-item demo-itab">
+                    <h4>Social Media<span class="demo-i">i</span></h4>
+                    <p>Adding depth to simple reactions and endorsements</p>
+                    <div class="demo-popup">
+                        <div class="demo-popup-title">Social Media iTabs</div>
+                        <p>Transform simple likes and reactions into meaningful endorsements with context, stories, and actionable information.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 15px;">Starting with a WordPress plugin, iTabs offers simple implementation with powerful results for content creators and consumers alike.</p>
+        </div>
+        
+        <div id="emotions" class="tab-content">
+            <h3>Emotional Intelligence</h3>
+            <p>iTabs expands beyond the basic information icon to create a new language of emotionally intelligent information sharing:</p>
+            
+            <div class="emotion-grid">
+                <div class="emotion-item demo-itab">
+                    <span class="emotion-icon">👍i</span>
+                    <span>Endorsements</span>
+                    <div class="demo-popup">
+                        <div class="demo-popup-title">Endorsement Context</div>
+                        <p>"I love this coffee shop! Great atmosphere, friendly staff, and the best cold brew in town. They also host local artists!"</p>
+                    </div>
+                </div>
+                <div class="emotion-item demo-itab">
+                    <span class="emotion-icon">❤️i</span>
+                    <span>Passions</span>
+                    <div class="demo-popup">
+                        <div class="demo-popup-title">Passion Project</div>
+                        <p>Ocean Cleanup Initiative has removed 5,000+ tons of plastic from coastal waters. See their impact report and how to support their mission.</p>
+                    </div>
+                </div>
+                <div class="emotion-item demo-itab">
+                    <span class="emotion-icon">🔥i</span>
+                    <span>Trending</span>
+                    <div class="demo-popup">
+                        <div class="demo-popup-title">Why This Is Trending</div>
+                        <p>This solar charger went viral after being featured on Outdoor Enthusiast. 4.8/5 stars with over 1,200 verified reviews.</p>
+                    </div>
+                </div>
+                <div class="emotion-item demo-itab">
+                    <span class="emotion-icon">🙏i</span>
+                    <span>Gratitude</span>
+                    <div class="demo-popup">
+                        <div class="demo-popup-title">Thank You Impact</div>
+                        <p>Your donations helped us provide 230 meals to homeless individuals this weekend. Here's how we're planning next month's outreach.</p>
+                    </div>
+                </div>
+                <div class="emotion-item demo-itab">
+                    <span class="emotion-icon">💰i</span>
+                    <span>Financial</span>
+                    <div class="demo-popup">
+                        <div class="demo-popup-title">Deal Details</div>
+                        <p>Early bird pricing ends in 48 hours. Save 35% on annual plans with code EARLYBIRD. Regular pricing resumes Monday at midnight.</p>
+                    </div>
+                </div>
+                <div class="emotion-item demo-itab">
+                    <span class="emotion-icon">💼i</span>
+                    <span>Professional</span>
+                    <div class="demo-popup">
+                        <div class="demo-popup-title">Job Insight</div>
+                        <p>Software Engineer role (Remote): Modern tech stack, flexible hours, collaborative team. Average interview process: 2-3 rounds over 10 days.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <p style="margin-top: 15px;">Each emoticon+i combination serves a specific communication need, creating a rich, intuitive system for contextual information sharing.</p>
+        </div>
+        
+        <div id="future" class="tab-content">
+            <h3>Transformative Potential</h3>
+            <p>iTabs represents not just a technical innovation but a fundamental rethinking of digital information display:</p>
+            
+            <ul>
+                <li><strong>Platform-agnostic standard</strong> for rich information display</li>
+                <li><strong>Bridge between social and commercial</strong> digital experiences</li>
+                <li><strong>Community-powered authenticity</strong> alongside official messaging</li>
+                <li><strong>Progressive implementation path</strong> from simple to sophisticated</li>
+            </ul>
+            
+            <p>Our vision extends beyond simple information display to create meaningful connections in an increasingly fragmented digital world.</p>
+            
+            <p>The future of iTabs includes enhanced verification systems, expanded platform support, and an API ecosystem supporting diverse applications across industries.</p>
+        </div>
+        
+        <a href="#" class="cta-button">Explore the iTabs Ecosystem</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            // Tab switching
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                    
+                    // Clear auto rotation when user clicks
+                    clearInterval(rotationInterval);
+                });
+            });
+            
+            // Auto-rotate tabs - just one complete loop
+            let currentTab = 0;
+            const maxRotations = tabs.length - 1; // Minus 1 because we start at first tab
+            let rotationCount = 0;
+            
+            const rotationInterval = setInterval(() => {
+                if (rotationCount >= maxRotations) {
+                    clearInterval(rotationInterval);
+                    return;
+                }
+                
+                currentTab = (currentTab + 1) % tabs.length;
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                tabs[currentTab].classList.add('active');
+                document.getElementById(tabs[currentTab].dataset.tab).classList.add('active');
+                
+                rotationCount++;
+            }, 6000);
+        });
+    </script>
+</body>
+</html>
+<br>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Teaser Creator Form</title>
