@@ -1,930 +1,580 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    import ThumbsIWidget from '@/components/ThumbsIWidget';
-
-export default function YourPage() {
-  return (
-    <div>
-      <h1>Your Page Content</h1>
-      {/* More content here */}
-      
-      {/* Add the Thumbs-i Widget */}
-      <ThumbsIWidget />
-    </div>
-  );
-}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iTabs: Bridging Digital Experiences</title>
+    <title>GoFundMe iTabs MVP Tool</title>
     <style>
-        :root {
-            --primary-color: #2962ff;
-            --secondary-color: #0039cb;
-            --light-bg: #f5f8ff;
-            --dark-text: #263238;
-            --light-text: #ffffff;
-            --tab-inactive: #e1e6f0;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            color: var(--dark-text);
-            background-color: #f0f2f5;
-            line-height: 1.6;
+
+```
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: #f5f5f5;
+        padding: 20px;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    
+    .header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+    
+    .tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    
+    .tab-btn {
+        background: white;
+        border: 2px solid #667eea;
+        color: #667eea;
+        padding: 12px 24px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s;
+        font-size: 16px;
+    }
+    
+    .tab-btn:hover {
+        background: #667eea;
+        color: white;
+    }
+    
+    .tab-btn.active {
+        background: #667eea;
+        color: white;
+    }
+    
+    .tab-content {
+        display: none;
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .tab-content.active {
+        display: block;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    .form-label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 8px;
+        color: #333;
+    }
+    
+    .form-input, .form-textarea {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 6px;
+        font-family: inherit;
+        font-size: 14px;
+    }
+    
+    .form-input:focus, .form-textarea:focus {
+        outline: none;
+        border-color: #667eea;
+    }
+    
+    .form-textarea {
+        min-height: 100px;
+        resize: vertical;
+    }
+    
+    .btn {
+        background: #667eea;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+    
+    .btn:hover {
+        background: #5568d3;
+    }
+    
+    .photo-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 20px 0;
+    }
+    
+    .photo-box {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        border: 2px dashed #667eea;
+    }
+    
+    .output-section {
+        margin-top: 30px;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        display: none;
+    }
+    
+    .output-section.show {
+        display: block;
+    }
+    
+    .code-box {
+        background: #2d2d2d;
+        color: #f8f8f2;
+        padding: 20px;
+        border-radius: 8px;
+        font-family: 'Courier New', monospace;
+        font-size: 12px;
+        max-height: 400px;
+        overflow: auto;
+        margin: 15px 0;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+    
+    .tracker-list {
+        margin-top: 20px;
+    }
+    
+    .campaign-item {
+        background: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+        border-left: 4px solid #667eea;
+    }
+    
+    .campaign-name {
+        font-weight: 600;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+    
+    .campaign-details {
+        color: #666;
+        font-size: 14px;
+    }
+    
+    @media (max-width: 768px) {
+        .photo-grid {
+            grid-template-columns: 1fr;
         }
-        
-        .teaser-container {
-            max-width: 500px;
-            margin: 30px auto;
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-        
-        .teaser-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: var(--light-text);
-            padding: 30px 25px;
-            position: relative;
-        }
-        
-        .teaser-logo {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        
-        .i-icon {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 36px;
-            height: 36px;
-            background-color: var(--light-text);
-            color: var(--primary-color);
-            border-radius: 50%;
-            font-style: italic;
-            font-weight: bold;
-            font-size: 22px;
-            margin-right: 10px;
-        }
-        
-        .teaser-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin: 0;
-            letter-spacing: -0.5px;
-        }
-        
-        .teaser-subtitle {
-            font-size: 16px;
-            font-weight: 400;
-            opacity: 0.9;
-            margin-top: 5px;
-        }
-        
-        .tabs {
-            display: flex;
-            background-color: var(--light-bg);
-        }
-        
-        .tab {
-            flex: 1;
-            text-align: center;
-            padding: 14px 5px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--dark-text);
-            background-color: var(--tab-inactive);
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s ease;
-        }
-        
-        .tab.active {
-            color: var(--primary-color);
-            background-color: white;
-            border-bottom: 3px solid var(--primary-color);
-        }
-        
-        .tab-content {
-            display: none;
-            padding: 25px;
-            height: 280px;
-            overflow-y: auto;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .concept-illustration {
-            display: flex;
-            justify-content: space-between;
-            margin: 15px 0;
-        }
-        
-        .concept-arrow {
-            display: flex;
-            align-items: center;
-            color: var(--primary-color);
-            font-size: 24px;
-        }
-        
-        .concept-box {
-            background: var(--light-bg);
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            width: 45%;
-        }
-        
-        /* iTabs Demo Styles */
-        .demo-itab {
-            display: inline-flex;
-            align-items: center;
-            margin: 0 5px;
-            cursor: pointer;
-            position: relative;
-        }
-        
-        .demo-i {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 20px;
-            height: 20px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            font-style: italic;
-            font-weight: bold;
-            font-size: 12px;
-            margin-left: 4px;
-        }
-        
-        .demo-popup {
-            display: none;
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            width: 250px;
-            z-index: 100;
-            padding: 12px;
-            text-align: left;
-        }
-        
-        .demo-popup:after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 8px solid white;
-        }
-        
-        .demo-popup p {
-            margin: 0;
-            font-size: 14px;
-        }
-        
-        .demo-popup-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: var(--primary-color);
-        }
-        
-        .demo-itab:hover .demo-popup {
-            display: block;
-        }
-        
-        h3 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-        
-        ul {
-            padding-left: 20px;
-            margin-bottom: 15px;
-        }
-        
-        li {
-            margin-bottom: 10px;
-        }
-        
-        .emotion-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .emotion-item {
-            display: flex;
-            align-items: center;
-            background: var(--light-bg);
-            padding: 10px;
-            border-radius: 8px;
-        }
-        
-        .emotion-icon {
-            font-size: 24px;
-            margin-right: 10px;
-        }
-        
-        .platform-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 15px;
-        }
-        
-        .platform-item {
-            background: var(--light-bg);
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        
-        .cta-button {
-            display: block;
-            background-color: var(--primary-color);
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            padding: 16px;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-        }
-        
-        .cta-button:hover {
-            background-color: var(--secondary-color);
-        }
-    </style>
+    }
+</style>
+```
+
 </head>
 <body>
-    <div class="teaser-container">
-        <div class="teaser-header">
-            <div class="teaser-logo">
-                <span class="i-icon">i</span>
-                <h1 class="teaser-title">iTabs</h1>
-            </div>
-            <p class="teaser-subtitle">Bridging the gaps in digital experience</p>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 GoFundMe iTabs MVP Tool</h1>
+            <p>Find campaigns → Build iTabs → Test results</p>
         </div>
-        
-        <div class="tabs">
-            <div class="tab active" data-tab="concept">Concept</div>
-            <div class="tab" data-tab="applications">Applications</div>
-            <div class="tab" data-tab="emotions">Emotions</div>
-            <div class="tab" data-tab="future">Future</div>
-        </div>
-        
-        <div id="concept" class="tab-content active">
-            <h3>The Digital Bridge</h3>
-            <p>iTabs transforms the humble information icon (i) into a powerful bridge connecting fragmented digital experiences.</p>
-            
-            <div class="concept-illustration">
-                <div class="concept-box">Surface Engagement</div>
-                <div class="concept-arrow">→</div>
-                <div class="concept-box">Deep Understanding</div>
-            </div>
-            
-            <p>Our innovation creates seamless pathways between:</p>
-            <ul>
-                <li><strong>Quick impressions</strong> and <span class="demo-itab">detailed information<span class="demo-i">i</span>
-                    <div class="demo-popup">
-                        <div class="demo-popup-title">Detailed Information</div>
-                        <p>iTabs provide rich, contextual information without disrupting the user's flow or requiring navigation away from the current page.</p>
-                    </div>
-                </span></li>
-                <li><strong>Official messaging</strong> and <span class="demo-itab">community reality<span class="demo-i">i</span>
-                    <div class="demo-popup">
-                        <div class="demo-popup-title">Community Reality</div>
-                        <p>See authentic feedback and experiences from real users, creating trust through transparency and genuine perspectives.</p>
-                    </div>
-                </span></li>
-                <li><strong>Casual browsing</strong> and <span class="demo-itab">meaningful action<span class="demo-i">i</span>
-                    <div class="demo-popup">
-                        <div class="demo-popup-title">Meaningful Action</div>
-                        <p>Convert interest into engagement with clear, contextual calls to action that appear exactly when users show interest.</p>
-                    </div>
-                </span></li>
-            </ul>
-            <p>All through the universally recognized information symbol, enhanced with rich, contextual content display.</p>
-        </div>
-        
-        <div id="applications" class="tab-content">
-            <h3>Versatile Applications</h3>
-            <p>The iTabs system creates value across multiple contexts:</p>
-            
-            <div class="platform-grid">
-                <div class="platform-item demo-itab">
-                    <h4>E-Commerce<span class="demo-i">i</span></h4>
-                    <p>Rich product details without cluttering listings</p>
-                    <div class="demo-popup">
-                        <div class="demo-popup-title">E-Commerce iTabs</div>
-                        <p>Display product specifications, user reviews, sizing charts, and comparison features without cluttering your product listings.</p>
-                    </div>
-                </div>
-                <div class="platform-item demo-itab">
-                    <h4>Job Recruitment<span class="demo-i">i</span></h4>
-                    <p>Comprehensive position information in compact format</p>
-                    <div class="demo-popup">
-                        <div class="demo-popup-title">Recruitment iTabs</div>
-                        <p>Share detailed job requirements, company culture, employee testimonials, and application process in an easily digestible format.</p>
-                    </div>
-                </div>
-                <div class="platform-item demo-itab">
-                    <h4>Charity<span class="demo-i">i</span></h4>
-                    <p>Authentic impact stories and transparent fund usage</p>
-                    <div class="demo-popup">
-                        <div class="demo-popup-title">Charity iTabs</div>
-                        <p>Showcase real impact stories, detailed fund allocation, upcoming initiatives, and simple donation options all in one place.</p>
-                    </div>
-                </div>
-                <div class="platform-item demo-itab">
-                    <h4>Social Media<span class="demo-i">i</span></h4>
-                    <p>Adding depth to simple reactions and endorsements</p>
-                    <div class="demo-popup">
-                        <div class="demo-popup-title">Social Media iTabs</div>
-                        <p>Transform simple likes and reactions into meaningful endorsements with context, stories, and actionable information.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <p style="margin-top: 15px;">Starting with a WordPress plugin, iTabs offers simple implementation with powerful results for content creators and consumers alike.</p>
-        </div>
-        
-        <div id="emotions" class="tab-content">
-            <h3>Emotional Intelligence</h3>
-            <p>iTabs expands beyond the basic information icon to create a new language of emotionally intelligent information sharing:</p>
-            
-            <div class="emotion-grid">
-                <div class="emotion-item demo-itab">
-                    <span class="emotion-icon">👍i</span>
-                    <span>Endorsements</span>
-                    <div class="demo-popup">
-                        <div class="demo-popup-title">Endorsement Context</div>
-                        <p>"I love this coffee shop! Great atmosphere, friendly staff, and the best cold brew in town. They also host local artists!"</p>
-                    </div>
-                </div>
-                <div class="emotion-item demo-itab">
-                    <span class="emotion-icon">❤️i</span>
-                    <span>Passions</span>
-                    <div class="demo-popup">
-                        <div class="demo-popup-title">Passion Project</div>
-                        <p>Ocean Cleanup Initiative has removed 5,000+ tons of plastic from coastal waters. See their impact report and how to support their mission.</p>
-                    </div>
-                </div>
-                <div class="emotion-item demo-itab">
-                    <span class="emotion-icon">🔥i</span>
-                    <span>Trending</span>
-                    <div class="demo-popup">
-                        <div class="demo-popup-title">Why This Is Trending</div>
-                        <p>This solar charger went viral after being featured on Outdoor Enthusiast. 4.8/5 stars with over 1,200 verified reviews.</p>
-                    </div>
-                </div>
-                <div class="emotion-item demo-itab">
-                    <span class="emotion-icon">🙏i</span>
-                    <span>Gratitude</span>
-                    <div class="demo-popup">
-                        <div class="demo-popup-title">Thank You Impact</div>
-                        <p>Your donations helped us provide 230 meals to homeless individuals this weekend. Here's how we're planning next month's outreach.</p>
-                    </div>
-                </div>
-                <div class="emotion-item demo-itab">
-                    <span class="emotion-icon">💰i</span>
-                    <span>Financial</span>
-                    <div class="demo-popup">
-                        <div class="demo-popup-title">Deal Details</div>
-                        <p>Early bird pricing ends in 48 hours. Save 35% on annual plans with code EARLYBIRD. Regular pricing resumes Monday at midnight.</p>
-                    </div>
-                </div>
-                <div class="emotion-item demo-itab">
-                    <span class="emotion-icon">💼i</span>
-                    <span>Professional</span>
-                    <div class="demo-popup">
-                        <div class="demo-popup-title">Job Insight</div>
-                        <p>Software Engineer role (Remote): Modern tech stack, flexible hours, collaborative team. Average interview process: 2-3 rounds over 10 days.</p>
-                    </div>
-                </div>
-            </div>
-            
-            <p style="margin-top: 15px;">Each emoticon+i combination serves a specific communication need, creating a rich, intuitive system for contextual information sharing.</p>
-        </div>
-        
-        <div id="future" class="tab-content">
-            <h3>Transformative Potential</h3>
-            <p>iTabs represents not just a technical innovation but a fundamental rethinking of digital information display:</p>
-            
-            <ul>
-                <li><strong>Platform-agnostic standard</strong> for rich information display</li>
-                <li><strong>Bridge between social and commercial</strong> digital experiences</li>
-                <li><strong>Community-powered authenticity</strong> alongside official messaging</li>
-                <li><strong>Progressive implementation path</strong> from simple to sophisticated</li>
-            </ul>
-            
-            <p>Our vision extends beyond simple information display to create meaningful connections in an increasingly fragmented digital world.</p>
-            
-            <p>The future of iTabs includes enhanced verification systems, expanded platform support, and an API ecosystem supporting diverse applications across industries.</p>
-        </div>
-        
-        <a href="#" class="cta-button">Explore the iTabs Ecosystem</a>
-    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const tabs = document.querySelectorAll('.tab');
-            const tabContents = document.querySelectorAll('.tab-content');
-            
-            // Tab switching
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    // Remove active class from all tabs and contents
-                    tabs.forEach(t => t.classList.remove('active'));
-                    tabContents.forEach(c => c.classList.remove('active'));
-                    
-                    // Add active class to clicked tab and corresponding content
-                    tab.classList.add('active');
-                    document.getElementById(tab.dataset.tab).classList.add('active');
-                    
-                    // Clear auto rotation when user clicks
-                    clearInterval(rotationInterval);
-                });
-            });
-            
-            // Auto-rotate tabs - just one complete loop
-            let currentTab = 0;
-            const maxRotations = tabs.length - 1; // Minus 1 because we start at first tab
-            let rotationCount = 0;
-            
-            const rotationInterval = setInterval(() => {
-                if (rotationCount >= maxRotations) {
-                    clearInterval(rotationInterval);
-                    return;
-                }
-                
-                currentTab = (currentTab + 1) % tabs.length;
-                tabs.forEach(t => t.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
-                
-                tabs[currentTab].classList.add('active');
-                document.getElementById(tabs[currentTab].dataset.tab).classList.add('active');
-                
-                rotationCount++;
-            }, 6000);
+```
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('tracker')">📊 Campaign Tracker</button>
+        <button class="tab-btn" onclick="switchTab('builder')">🔨 iTabs Builder</button>
+    </div>
+    
+    <!-- TRACKER TAB -->
+    <div id="tracker-tab" class="tab-content active">
+        <h2>Campaign Tracker</h2>
+        <p style="color: #666; margin-bottom: 20px;">Track GoFundMe campaigns you find (with 3-4 photos)</p>
+        
+        <div class="form-group">
+            <label class="form-label">Campaign URL</label>
+            <input type="text" id="trackUrl" class="form-input" placeholder="https://gofundme.com/...">
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Campaign Name</label>
+            <input type="text" id="trackName" class="form-input" placeholder="Help Sarah Beat Cancer">
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Notes (photos available, current progress, etc.)</label>
+            <textarea id="trackNotes" class="form-textarea" placeholder="Has 4 good photos, raised $2,500/$50,000, struggling to get traction..."></textarea>
+        </div>
+        
+        <button class="btn" onclick="addToTracker()">➕ Add to Tracker</button>
+        
+        <div class="tracker-list" id="trackerList">
+            <p style="color: #999; text-align: center; margin-top: 40px;">No campaigns tracked yet</p>
+        </div>
+    </div>
+    
+    <!-- BUILDER TAB -->
+    <div id="builder-tab" class="tab-content">
+        <h2>iTabs Builder</h2>
+        <p style="color: #666; margin-bottom: 20px;">Fill this out, then copy the HTML code to create an iTabs page</p>
+        
+        <div class="form-group">
+            <label class="form-label">Campaign Title</label>
+            <input type="text" id="title" class="form-input" placeholder="Help Frank Fight Cancer" value="Help Frank Fight Cancer">
+        </div>
+        
+        <div class="form-group">
+            <label class="form-label">Campaign Subtitle</label>
+            <input type="text" id="subtitle" class="form-input" placeholder="Boilermaker needs support during treatment" value="Boilermaker & Farmer Fighting Cancer - Supporting Family During Treatment">
+        </div>
+        
+        <h3 style="margin: 30px 0 15px 0;">Photos (Add 3-4)</h3>
+        
+        <div class="photo-grid">
+            <div class="photo-box">
+                <div class="form-group">
+                    <label class="form-label">Photo 1 Label</label>
+                    <input type="text" id="label1" class="form-input" placeholder="Frank's Story" value="Frank's Challenge">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Photo 1 Image URL (or leave blank)</label>
+                    <input type="text" id="img1" class="form-input" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">What shows when they click "i"</label>
+                    <textarea id="content1" class="form-textarea">Frank is a 52-year-old boilermaker and farmer from rural WA. He's worked hard his entire life and is known in his community as someone who shows up when others need him.
+```
+
+In March 2025, Frank was diagnosed with Stage 3 cancer. The aggressive treatment plan requires him to stop work immediately, travel to Perth for weekly treatments, and face significant costs not covered by Medicare.
+
+His family depends on his income, and without support, he’ll have to choose between proper treatment and keeping his family afloat.</textarea>
+</div>
+</div>
+
+```
+            <div class="photo-box">
+                <div class="form-group">
+                    <label class="form-label">Photo 2 Label</label>
+                    <input type="text" id="label2" class="form-input" placeholder="Treatment Costs" value="Treatment Costs">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Photo 2 Image URL (or leave blank)</label>
+                    <input type="text" id="img2" class="form-input" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">What shows when they click "i"</label>
+                    <textarea id="content2" class="form-textarea">MEDICAL COSTS:
+```
+
+• Specialist consultations: $4,500
+• Medications not on PBS: $8,200
+• Additional treatments: $3,800
+Medical Total: $16,500
+
+LIVING EXPENSES (6 months):
+• Perth accommodation: $9,600
+• Travel costs: $4,200
+• Family support at home: $12,000
+Living Total: $25,800
+
+Campaign Goal: $48,645 (includes 15% emergency buffer)
+
+Every dollar is accounted for and will be used transparently.</textarea>
+</div>
+</div>
+
+```
+            <div class="photo-box">
+                <div class="form-group">
+                    <label class="form-label">Photo 3 Label</label>
+                    <input type="text" id="label3" class="form-input" placeholder="Treatment Timeline" value="Treatment Timeline">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Photo 3 Image URL (or leave blank)</label>
+                    <input type="text" id="img3" class="form-input" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">What shows when they click "i"</label>
+                    <textarea id="content3" class="form-textarea">6-MONTH TREATMENT PLAN:
+```
+
+Weeks 1-8: Initial intensive treatment
+Weekly trips to Perth for chemotherapy
+
+Weeks 9-16: Ongoing treatment phase
+Bi-weekly sessions, monitoring progress
+
+Weeks 17-24: Recovery and assessment
+Follow-up appointments, strength rebuilding
+
+Frank and his family will update this page every 2 weeks with progress, showing exactly how funds are being used. Full transparency, always.</textarea>
+</div>
+</div>
+
+```
+            <div class="photo-box">
+                <div class="form-group">
+                    <label class="form-label">Photo 4 Label</label>
+                    <input type="text" id="label4" class="form-input" placeholder="How You Help" value="How Your Donation Helps">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Photo 4 Image URL (or leave blank)</label>
+                    <input type="text" id="img4" class="form-input" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">What shows when they click "i"</label>
+                    <textarea id="content4" class="form-textarea">Every donation makes a real difference:
+```
+
+$50 - Covers one week of accommodation in Perth
+$100 - Covers fuel for two round trips to hospital
+$250 - Covers one specialist consultation
+$500 - Covers one week of medications
+$1,000+ - Covers critical treatment costs
+
+No amount is too small. Frank’s family is incredibly grateful for any support during this difficult time.
+
+100% of funds go directly to Frank’s medical and living expenses. Complete transparency through regular updates.</textarea>
+</div>
+</div>
+</div>
+
+```
+        <div class="form-group">
+            <label class="form-label">Link to Original GoFundMe</label>
+            <input type="text" id="gofundme" class="form-input" placeholder="https://gofundme.com/..." value="https://gofundme.com/help-frank-fight-cancer">
+        </div>
+        
+        <button class="btn" onclick="generateCode()">🚀 Generate iTabs HTML Code</button>
+        
+        <div id="output" class="output-section">
+            <h3 style="color: #667eea; margin-bottom: 15px;">✅ Your iTabs HTML Code</h3>
+            <p style="margin-bottom: 15px;">Copy this code, paste into a new file called <strong>campaign.html</strong>, then open it in your browser!</p>
+            <div class="code-box" id="codeOutput"></div>
+            <button class="btn" onclick="copyCode()">📋 Copy All Code</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    let campaigns = [];
+    
+    function switchTab(tabName) {
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
         });
-    </script>
-</body>
-</html>
-<br>
-<!DOCTYPE html>
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        // Show selected tab
+        document.getElementById(tabName + '-tab').classList.add('active');
+        event.target.classList.add('active');
+    }
+    
+    function addToTracker() {
+        const url = document.getElementById('trackUrl').value;
+        const name = document.getElementById('trackName').value;
+        const notes = document.getElementById('trackNotes').value;
+        
+        if (!url || !name) {
+            alert('Please add at least URL and name!');
+            return;
+        }
+        
+        campaigns.push({ url, name, notes, date: new Date().toLocaleDateString() });
+        
+        renderTracker();
+        
+        // Clear form
+        document.getElementById('trackUrl').value = '';
+        document.getElementById('trackName').value = '';
+        document.getElementById('trackNotes').value = '';
+    }
+    
+    function renderTracker() {
+        const list = document.getElementById('trackerList');
+        
+        if (campaigns.length === 0) {
+            list.innerHTML = '<p style="color: #999; text-align: center; margin-top: 40px;">No campaigns tracked yet</p>';
+            return;
+        }
+        
+        list.innerHTML = campaigns.map(c => `
+            <div class="campaign-item">
+                <div class="campaign-name">${c.name}</div>
+                <div class="campaign-details">
+                    <strong>URL:</strong> <a href="${c.url}" target="_blank">${c.url}</a><br>
+                    <strong>Added:</strong> ${c.date}<br>
+                    ${c.notes ? '<strong>Notes:</strong> ' + c.notes : ''}
+                </div>
+            </div>
+        `).join('');
+    }
+    
+    function generateCode() {
+        const title = document.getElementById('title').value;
+        const subtitle = document.getElementById('subtitle').value;
+        const gofundme = document.getElementById('gofundme').value;
+        
+        if (!title) {
+            alert('Please add at least a title!');
+            return;
+        }
+        
+        const photos = [];
+        for (let i = 1; i <= 4; i++) {
+            const label = document.getElementById('label' + i).value;
+            if (label) {
+                photos.push({
+                    label: label,
+                    img: document.getElementById('img' + i).value || '',
+                    content: document.getElementById('content' + i).value || 'Details coming soon...'
+                });
+            }
+        }
+        
+        if (photos.length === 0) {
+            alert('Please add at least one photo!');
+            return;
+        }
+        
+        const html = buildHTML(title, subtitle, photos, gofundme);
+        
+        document.getElementById('codeOutput').textContent = html;
+        document.getElementById('output').classList.add('show');
+        document.getElementById('output').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    function buildHTML(title, subtitle, photos, gofundmeLink) {
+        const photosHTML = photos.map((p, i) => {
+            const imgSrc = p.img || `https://via.placeholder.com/400x250/667eea/ffffff?text=${encodeURIComponent(p.label)}`;
+            return `
+    <div class="photo-card" onclick="showModal(${i})">
+        <img src="${imgSrc}" alt="${p.label}">
+        <div class="photo-label">${p.label}</div>
+        <div class="i-button">i</div>
+    </div>`;
+        }).join('');
+        
+        const photoDataJSON = JSON.stringify(photos);
+        
+        return `<!DOCTYPE html>
+```
+
 <html>
 <head>
-    <title>Teaser Creator Form</title>
+    <title>${title}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            background: #f0f2f5;
-            padding: 20px;
-        }
-
-        .form-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .form-header {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .form-logo {
-            width: 80px;
-            height: 80px;
-            background: #00B964;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            font-weight: bold;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .image-upload {
-            width: 100%;
-            height: 200px;
-            border: 2px dashed #d1d5db;
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: border-color 0.2s;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .image-upload:hover {
-            border-color: #9ca3af;
-        }
-
-        .image-upload img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-        }
-
-        .image-upload-icon {
-            width: 48px;
-            height: 48px;
-            color: #9ca3af;
-            margin-bottom: 8px;
-        }
-
-        label {
-            display: block;
-            font-size: 16px;
-            font-weight: bold;
-            color: #374151;
-            margin-bottom: 8px;
-        }
-
-        input[type="text"],
-        textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 6px;
-            font-size: 16px;
-            font-family: inherit;
-        }
-
-        textarea {
-            min-height: 300px;
-            resize: vertical;
-            line-height: 1.6;
-        }
-
-        .hint {
-            font-size: 14px;
-            color: #6b7280;
-            margin-top: 6px;
-        }
-
-        .buttons {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-end;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e5e7eb;
-        }
-
-        button {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.2s;
-        }
-
-        button.primary {
-            background: #00B964;
-            color: white;
-        }
-
-        button.secondary {
-            background: #e5e7eb;
-            color: #374151;
-        }
-
-        button:hover {
-            opacity: 0.9;
-        }
-
-        #preview {
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 2px solid #e5e7eb;
-        }
-
-        .preview-title {
-            font-size: 20px;
-            color: #00B964;
-            margin-bottom: 20px;
-        }
-
-        .preview-content {
-            background: #f9fafb;
-            padding: 20px;
-            border-radius: 6px;
-        }
-
-        .tabs {
-            margin-bottom: 20px;
-        }
-
-        .tab-buttons {
-            display: flex;
-            gap: 2px;
-            margin-bottom: 20px;
-        }
-
-        .tab-button {
-            padding: 10px 20px;
-            background: #f3f4f6;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .tab-button.active {
-            background: #00B964;
-            color: white;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .preview-image {
-            width: 100%;
-            max-height: 300px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-bottom: 20px;
-        }
+        body { font-family: Arial, sans-serif; background: #f5f5f5; }
+        .header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 50px 20px; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .header p { font-size: 1.2rem; opacity: 0.9; }
+        .photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
+        .photo-card { position: relative; border-radius: 15px; overflow: hidden; cursor: pointer; box-shadow: 0 5px 20px rgba(0,0,0,0.15); transition: transform 0.3s; }
+        .photo-card:hover { transform: translateY(-8px); }
+        .photo-card img { width: 100%; height: 250px; object-fit: cover; }
+        .photo-label { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: white; padding: 20px; font-weight: 600; font-size: 1.1rem; }
+        .i-button { position: absolute; top: 15px; right: 15px; background: rgba(102,126,234,0.95); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .donate { text-align: center; padding: 50px 20px; background: #fff; }
+        .donate h2 { font-size: 2rem; margin-bottom: 25px; color: #333; }
+        .donate-btn { display: inline-block; background: #02a95c; color: white; padding: 18px 50px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 1.2rem; transition: background 0.3s; }
+        .donate-btn:hover { background: #028a4c; }
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.75); align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+        .modal.show { display: flex; }
+        .modal-box { background: white; border-radius: 20px; max-width: 600px; width: 100%; max-height: 85vh; overflow-y: auto; animation: slideUp 0.3s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 30px; position: relative; border-radius: 20px 20px 0 0; }
+        .modal-header h3 { font-size: 1.5rem; }
+        .modal-close { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.25); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 24px; font-weight: bold; }
+        .modal-close:hover { background: rgba(255,255,255,0.4); }
+        .modal-body { padding: 30px; line-height: 1.8; color: #333; font-size: 1rem; }
     </style>
 </head>
 <body>
-    <div class="form-container">
-        <div class="form-header">
-            <div class="form-logo">GL</div>
-            <div>
-                <h1>Create Your Teaser</h1>
-                <p>Fill out the form below to generate your teaser</p>
-            </div>
-        </div>
-
-        <form id="teaserForm">
-            <div class="form-group">
-                <label for="mainTitle">Main Title</label>
-                <input 
-                    type="text" 
-                    id="mainTitle" 
-                    name="mainTitle" 
-                    value="Transform Simple Forms into Beautiful Support Teasers"
-                >
-                <p class="hint">This appears as the main headline of your teaser</p>
-            </div>
-
-            <div class="form-group">
-                <label for="subtitle">Subtitle</label>
-                <input 
-                    type="text" 
-                    id="subtitle" 
-                    name="subtitle" 
-                    value="Create engaging teasers instantly"
-                >
-                <p class="hint">A brief description that appears under the title</p>
-            </div>
-
-            <div class="form-group">
-                <label for="imageUrl">Story Image URL</label>
-                <input 
-                    type="text" 
-                    id="imageUrl" 
-                    name="imageUrl" 
-                    placeholder="Enter image URL or upload below"
-                    value="https://images.unsplash.com/photo-1576504677634-06b2130bd1f3"
-                >
-                <p class="hint">Direct link to an image, or use file upload below</p>
-            </div>
-
-            <div class="form-group">
-                <label for="storyImage">Or Upload Image</label>
-                <div class="image-upload" id="imageUpload">
-                    <svg class="image-upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                    </svg>
-                    <span>Click to upload header image</span>
-                    <input 
-                        type="file" 
-                        id="storyImage" 
-                        accept="image/*" 
-                        style="display: none;"
-                    >
-                </div>
-                <p class="hint">Upload will override URL if both are provided</p>
-            </div>
-
-            <div class="form-group">
-                <label for="storyContent">Story Content</label>
-                <textarea 
-                    id="storyContent" 
-                    name="storyContent" 
-                    placeholder="Enter your story content here..."
-                >Have you ever wanted to create an eye-catching teaser for a fundraiser or support campaign, but got stuck because you're not a designer? You're not alone. Most people don't realize that creating beautiful, engaging teasers could be as simple as filling out a form - but that's exactly what we're building with Gifylink.
-
-What is Gifylink?
-Gifylink is a revolutionary tool that transforms basic form inputs into professional-looking support teasers - instantly. No design skills needed. If you can fill out a form, you can create beautiful teasers that inspire others to give.
-
-Join Early Access
-We're offering early access to this innovative platform for just $5. Your contribution helps us develop the platform while giving you immediate access to create unlimited teasers for your causes.
-
-How It Works
-1. Fill out a simple form with your campaign details
-2. Watch as it transforms into a beautiful, animated teaser
-3. Share your teaser anywhere online
-4. Track engagement and support</textarea>
-                <p class="hint">Your main story content - supports plain text formatting</p>
-            </div>
-
-            <div class="form-group">
-                <label for="gofundmeUrl">GoFundMe Campaign URL</label>
-                <input 
-                    type="text" 
-                    id="gofundmeUrl" 
-                    name="gofundmeUrl" 
-                    placeholder="https://www.gofundme.com/f/your-campaign-name"
-                >
-                <p class="hint">Enter the full GoFundMe URL to display the campaign widget</p>
-            </div>
-
-            <div class="buttons">
-                <button type="button" class="secondary" onclick="clearForm()">Clear</button>
-                <button type="button" class="secondary" onclick="previewTeaser()">Preview</button>
-                <button type="submit" class="primary">Generate Teaser</button>
-            </div>
-        </form>
-
-        <div id="preview" style="display: none;">
-            <h2 class="preview-title">Preview</h2>
-            <div class="preview-content">
-                <div class="tabs">
-                    <div class="tab-buttons">
-                        <button class="tab-button active" onclick="switchTab('story')">Story</button>
-                        <button class="tab-button" onclick="switchTab('support')">Support</button>
-                    </div>
-                    <div id="storyTab" class="tab-content active">
-                        <div id="previewImage"></div>
-                        <div id="previewTitle"></div>
-                        <div id="previewStory"></div>
-                    </div>
-                    <div id="supportTab" class="tab-content">
-                        <div id="previewCampaign" class="text-center"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="header">
+        <h1>${title}</h1>
+        <p>${subtitle}</p>
     </div>
 
-    <script>
-        // Image upload handling
-        const imageUpload = document.getElementById('imageUpload');
-        const imageInput = document.getElementById('storyImage');
-        let uploadedImage = null;
+```
+<div class="photos">
+    ${photosHTML}
+</div>
 
-        imageUpload.addEventListener('click', () => {
-            imageInput.click();
+<div class="donate">
+    <h2>Ready to Help?</h2>
+    <a href="${gofundmeLink}" class="donate-btn" target="_blank">Donate on GoFundMe</a>
+</div>
+
+<div id="modal" class="modal" onclick="closeModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h3 id="modalTitle"></h3>
+            <button class="modal-close" onclick="closeModal()">×</button>
+        </div>
+        <div class="modal-body" id="modalBody"></div>
+    </div>
+</div>
+
+<script>
+    const data = ${photoDataJSON};
+    
+    function showModal(index) {
+        document.getElementById('modalTitle').textContent = data[index].label;
+        document.getElementById('modalBody').innerHTML = data[index].content.replace(/\\n/g, '<br>');
+        document.getElementById('modal').classList.add('show');
+    }
+    
+    function closeModal() {
+        document.getElementById('modal').classList.remove('show');
+    }
+</script>
+```
+
+</body>
+</html>`;
+        }
+
+```
+    function copyCode() {
+        const code = document.getElementById('codeOutput').textContent;
+        navigator.clipboard.writeText(code).then(() => {
+            alert('✅ Code copied to clipboard! Paste it into a new .html file.');
+        }).catch(() => {
+            alert('Please manually select and copy the code above.');
         });
+    }
+</script>
+```
 
-        imageInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    uploadedImage = e.target.result;
-                    imageUpload.innerHTML = `<img src="${uploadedImage}" alt="Uploaded image" style="width: 100%; height: 100%; object-fit: cover;">`;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function clearForm() {
-            document.getElementById('teaserForm').reset();
-            document.getElementById('preview').style.display = 'none';
-            document.getElementById('imageUrl').value = '';
-            imageUpload.innerHTML = `
-                <svg class="image-upload-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                </svg>
-                <span>Click to upload header image</span>
-            `;
-            uploadedImage = null;
-        }
-
-        function switchTab(tabName) {
-            // Update tab buttons
-            document.querySelectorAll('.tab-button').forEach(button => {
-                button.classList.remove('active');
-            });
-            event.target.classList.add('active');
-
-            // Update tab content
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            if (tabName === 'story') {
-                document.getElementById('storyTab').classList.add('active');
-            } else {
-                document.getElementById('supportTab').classList.add('active');
-            }
-        }
-
-        function extractGoFundMeId(url) {
-            // Handle various GoFundMe URL formats
-            try {
-                const urlObj = new URL(url);
-                const pathParts = urlObj.pathname.split('/');
-                // Remove empty strings and 'f' from the path parts
-                const filteredParts = pathParts.filter(part => part && part !== 'f');
-                // Return the first remaining part as the campaign ID
-                return filteredParts[0] || null;
-            } catch (e) {
-                return null;
-            }
-        }
-
-        function previewTeaser() {
-            const preview = document.getElementById('preview');
-            const title = document.getElementById('mainTitle').value;
-            const subtitle = document.getElementById('subtitle').value;
-            const story = document.getElementById('storyContent').value;
-            const campaignUrl = document.getElementById('gofundmeUrl').value;
-
-            // Update image preview if exists
-            const previewImage = document.getElementById('previewImage');
-            const imageUrl = document.getElementById('imageUrl').value;
-            if (uploadedImage) {
-                // If there's an uploaded image, it takes precedence
-                previewImage.innerHTML = `<img src="${uploadedImage}" alt="Story header" class="preview-image">`;
-            } else if (imageUrl) {
-                // If no upload but URL is provided, use the URL
-                previewImage.innerHTML = `<img src="${imageUrl}" alt="Story header" class="preview-image">`;
-            } else {
-                previewImage.innerHTML = '';
-            }
-
-            // Update story tab
-            document.getElementById('previewTitle').innerHTML = `
-                <h3 style="color: #00B964; margin-bottom: 10px; font-size: 24px;">${title}</h3>
-                <p style="color: #6b7280; margin-bottom: 20px;">${subtitle}</p>
-            `;
-            
-            document.getElementById('previewStory').innerHTML = story.split('\n').map(para => 
-                `<p style="margin-bottom: 15px;">${para}</p>`
-            ).join('');
-
-            // Update support tab with GoFundMe widget
-            const campaignId = campaignUrl ? extractGoFundMeId(campaignUrl) : null;
-            document.getElementById('previewCampaign').innerHTML = campaignId ? `
-                <h3 style="color: #00B964; margin-bottom: 20px; font-size: 24px;">Support This Campaign</h3>
-                <iframe src="https://www.gofundme.com/f/${campaignId}/widget/large" frameborder="0" scrolling="no" 
-                    style="width: 100%; min-width: 320px; height: 365px; margin-bottom: 20px;"></iframe>
-            ` : '<p style="color: #6b7280;">Please enter a valid GoFundMe campaign URL</p>';
-            
-            preview.style.display = 'block';
-            preview.scrollIntoView({ behavior: 'smooth' });
-        }
-    </script>
 </body>
 </html>
