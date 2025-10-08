@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoFundMe iTabs MVP Tool</title>
+    <title>iTabs Builder - GoFundMe</title>
     <style>
         * {
             margin: 0;
@@ -12,7 +12,6 @@
             box-sizing: border-box;
         }
 
-```
     body {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         background: #f5f5f5;
@@ -20,7 +19,7 @@
     }
     
     .container {
-        max-width: 1200px;
+        max-width: 1000px;
         margin: 0 auto;
     }
     
@@ -38,44 +37,11 @@
         margin-bottom: 10px;
     }
     
-    .tabs {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
-    
-    .tab-btn {
-        background: white;
-        border: 2px solid #667eea;
-        color: #667eea;
-        padding: 12px 24px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: all 0.3s;
-        font-size: 16px;
-    }
-    
-    .tab-btn:hover {
-        background: #667eea;
-        color: white;
-    }
-    
-    .tab-btn.active {
-        background: #667eea;
-        color: white;
-    }
-    
-    .tab-content {
-        display: none;
+    .builder-section {
         background: white;
         padding: 30px;
         border-radius: 12px;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    
-    .tab-content.active {
-        display: block;
     }
     
     .form-group {
@@ -118,6 +84,7 @@
         font-weight: 600;
         font-size: 16px;
         margin-top: 10px;
+        width: 100%;
     }
     
     .btn:hover {
@@ -156,7 +123,7 @@
         padding: 20px;
         border-radius: 8px;
         font-family: 'Courier New', monospace;
-        font-size: 12px;
+        font-size: 11px;
         max-height: 400px;
         overflow: auto;
         margin: 15px 0;
@@ -164,27 +131,14 @@
         word-wrap: break-word;
     }
     
-    .tracker-list {
-        margin-top: 20px;
-    }
-    
-    .campaign-item {
-        background: #f8f9fa;
+    .success-msg {
+        background: #d4edda;
+        color: #155724;
         padding: 15px;
         border-radius: 8px;
-        margin-bottom: 10px;
-        border-left: 4px solid #667eea;
-    }
-    
-    .campaign-name {
+        margin-bottom: 15px;
+        border-left: 4px solid #28a745;
         font-weight: 600;
-        font-size: 16px;
-        margin-bottom: 5px;
-    }
-    
-    .campaign-details {
-        color: #666;
-        font-size: 14px;
     }
     
     @media (max-width: 768px) {
@@ -193,80 +147,39 @@
         }
     }
 </style>
-```
 
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎯 GoFundMe iTabs MVP Tool</h1>
-            <p>Find campaigns → Build iTabs → Test results</p>
+            <h1>🔨 iTabs Builder</h1>
+            <p>Pre-filled with Frank's Campaign - Just Click Generate!</p>
         </div>
 
-```
-    <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('tracker')">📊 Campaign Tracker</button>
-        <button class="tab-btn" onclick="switchTab('builder')">🔨 iTabs Builder</button>
-    </div>
-    
-    <!-- TRACKER TAB -->
-    <div id="tracker-tab" class="tab-content active">
-        <h2>Campaign Tracker</h2>
-        <p style="color: #666; margin-bottom: 20px;">Track GoFundMe campaigns you find (with 3-4 photos)</p>
-        
-        <div class="form-group">
-            <label class="form-label">Campaign URL</label>
-            <input type="text" id="trackUrl" class="form-input" placeholder="https://gofundme.com/...">
-        </div>
-        
-        <div class="form-group">
-            <label class="form-label">Campaign Name</label>
-            <input type="text" id="trackName" class="form-input" placeholder="Help Sarah Beat Cancer">
-        </div>
-        
-        <div class="form-group">
-            <label class="form-label">Notes (photos available, current progress, etc.)</label>
-            <textarea id="trackNotes" class="form-textarea" placeholder="Has 4 good photos, raised $2,500/$50,000, struggling to get traction..."></textarea>
-        </div>
-        
-        <button class="btn" onclick="addToTracker()">➕ Add to Tracker</button>
-        
-        <div class="tracker-list" id="trackerList">
-            <p style="color: #999; text-align: center; margin-top: 40px;">No campaigns tracked yet</p>
-        </div>
-    </div>
-    
-    <!-- BUILDER TAB -->
-    <div id="builder-tab" class="tab-content">
-        <h2>iTabs Builder</h2>
-        <p style="color: #666; margin-bottom: 20px;">Fill this out, then copy the HTML code to create an iTabs page</p>
+    <div class="builder-section">
+        <h2 style="margin-bottom: 20px;">Campaign Details</h2>
         
         <div class="form-group">
             <label class="form-label">Campaign Title</label>
-            <input type="text" id="title" class="form-input" placeholder="Help Frank Fight Cancer" value="Help Frank Fight Cancer">
+            <input type="text" id="title" class="form-input" value="Help Frank Fight Cancer">
         </div>
         
         <div class="form-group">
             <label class="form-label">Campaign Subtitle</label>
-            <input type="text" id="subtitle" class="form-input" placeholder="Boilermaker needs support during treatment" value="Boilermaker & Farmer Fighting Cancer - Supporting Family During Treatment">
+            <input type="text" id="subtitle" class="form-input" value="Boilermaker & Farmer Fighting Cancer - Supporting Family During Treatment">
         </div>
         
-        <h3 style="margin: 30px 0 15px 0;">Photos (Add 3-4)</h3>
+        <h3 style="margin: 30px 0 15px 0;">Photos with "i" Button Content</h3>
         
         <div class="photo-grid">
             <div class="photo-box">
                 <div class="form-group">
                     <label class="form-label">Photo 1 Label</label>
-                    <input type="text" id="label1" class="form-input" placeholder="Frank's Story" value="Frank's Challenge">
+                    <input type="text" id="label1" class="form-input" value="Frank's Challenge">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Photo 1 Image URL (or leave blank)</label>
-                    <input type="text" id="img1" class="form-input" placeholder="https://...">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">What shows when they click "i"</label>
+                    <label class="form-label">Content when clicking "i"</label>
                     <textarea id="content1" class="form-textarea">Frank is a 52-year-old boilermaker and farmer from rural WA. He's worked hard his entire life and is known in his community as someone who shows up when others need him.
-```
 
 In March 2025, Frank was diagnosed with Stage 3 cancer. The aggressive treatment plan requires him to stop work immediately, travel to Perth for weekly treatments, and face significant costs not covered by Medicare.
 
@@ -274,20 +187,14 @@ His family depends on his income, and without support, he’ll have to choose be
 </div>
 </div>
 
-```
             <div class="photo-box">
                 <div class="form-group">
                     <label class="form-label">Photo 2 Label</label>
-                    <input type="text" id="label2" class="form-input" placeholder="Treatment Costs" value="Treatment Costs">
+                    <input type="text" id="label2" class="form-input" value="Treatment Costs">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Photo 2 Image URL (or leave blank)</label>
-                    <input type="text" id="img2" class="form-input" placeholder="https://...">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">What shows when they click "i"</label>
+                    <label class="form-label">Content when clicking "i"</label>
                     <textarea id="content2" class="form-textarea">MEDICAL COSTS:
-```
 
 • Specialist consultations: $4,500
 • Medications not on PBS: $8,200
@@ -306,20 +213,16 @@ Every dollar is accounted for and will be used transparently.</textarea>
 </div>
 </div>
 
-```
+
             <div class="photo-box">
                 <div class="form-group">
                     <label class="form-label">Photo 3 Label</label>
-                    <input type="text" id="label3" class="form-input" placeholder="Treatment Timeline" value="Treatment Timeline">
+                    <input type="text" id="label3" class="form-input" value="Treatment Timeline">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Photo 3 Image URL (or leave blank)</label>
-                    <input type="text" id="img3" class="form-input" placeholder="https://...">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">What shows when they click "i"</label>
+                    <label class="form-label">Content when clicking "i"</label>
                     <textarea id="content3" class="form-textarea">6-MONTH TREATMENT PLAN:
-```
+
 
 Weeks 1-8: Initial intensive treatment
 Weekly trips to Perth for chemotherapy
@@ -334,20 +237,16 @@ Frank and his family will update this page every 2 weeks with progress, showing 
 </div>
 </div>
 
-```
+
             <div class="photo-box">
                 <div class="form-group">
                     <label class="form-label">Photo 4 Label</label>
-                    <input type="text" id="label4" class="form-input" placeholder="How You Help" value="How Your Donation Helps">
+                    <input type="text" id="label4" class="form-input" value="How Your Donation Helps">
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Photo 4 Image URL (or leave blank)</label>
-                    <input type="text" id="img4" class="form-input" placeholder="https://...">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">What shows when they click "i"</label>
+                    <label class="form-label">Content when clicking "i"</label>
                     <textarea id="content4" class="form-textarea">Every donation makes a real difference:
-```
+
 
 $50 - Covers one week of accommodation in Perth
 $100 - Covers fuel for two round trips to hospital
@@ -362,89 +261,28 @@ No amount is too small. Frank’s family is incredibly grateful for any support 
 </div>
 </div>
 
-```
         <div class="form-group">
-            <label class="form-label">Link to Original GoFundMe</label>
-            <input type="text" id="gofundme" class="form-input" placeholder="https://gofundme.com/..." value="https://gofundme.com/help-frank-fight-cancer">
+            <label class="form-label">Link to GoFundMe Campaign</label>
+            <input type="text" id="gofundme" class="form-input" value="https://gofundme.com/help-frank-fight-cancer">
         </div>
         
-        <button class="btn" onclick="generateCode()">🚀 Generate iTabs HTML Code</button>
+        <button class="btn" onclick="generateHTML()">🚀 Generate iTabs HTML Code</button>
         
         <div id="output" class="output-section">
-            <h3 style="color: #667eea; margin-bottom: 15px;">✅ Your iTabs HTML Code</h3>
-            <p style="margin-bottom: 15px;">Copy this code, paste into a new file called <strong>campaign.html</strong>, then open it in your browser!</p>
+            <div class="success-msg">
+                ✅ Code Generated! Copy it and save as "frank.html" then open in your browser.
+            </div>
             <div class="code-box" id="codeOutput"></div>
-            <button class="btn" onclick="copyCode()">📋 Copy All Code</button>
+            <button class="btn" onclick="copyToClipboard()">📋 Copy All Code</button>
         </div>
     </div>
 </div>
 
 <script>
-    let campaigns = [];
-    
-    function switchTab(tabName) {
-        // Hide all tabs
-        document.querySelectorAll('.tab-content').forEach(tab => {
-            tab.classList.remove('active');
-        });
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        
-        // Show selected tab
-        document.getElementById(tabName + '-tab').classList.add('active');
-        event.target.classList.add('active');
-    }
-    
-    function addToTracker() {
-        const url = document.getElementById('trackUrl').value;
-        const name = document.getElementById('trackName').value;
-        const notes = document.getElementById('trackNotes').value;
-        
-        if (!url || !name) {
-            alert('Please add at least URL and name!');
-            return;
-        }
-        
-        campaigns.push({ url, name, notes, date: new Date().toLocaleDateString() });
-        
-        renderTracker();
-        
-        // Clear form
-        document.getElementById('trackUrl').value = '';
-        document.getElementById('trackName').value = '';
-        document.getElementById('trackNotes').value = '';
-    }
-    
-    function renderTracker() {
-        const list = document.getElementById('trackerList');
-        
-        if (campaigns.length === 0) {
-            list.innerHTML = '<p style="color: #999; text-align: center; margin-top: 40px;">No campaigns tracked yet</p>';
-            return;
-        }
-        
-        list.innerHTML = campaigns.map(c => `
-            <div class="campaign-item">
-                <div class="campaign-name">${c.name}</div>
-                <div class="campaign-details">
-                    <strong>URL:</strong> <a href="${c.url}" target="_blank">${c.url}</a><br>
-                    <strong>Added:</strong> ${c.date}<br>
-                    ${c.notes ? '<strong>Notes:</strong> ' + c.notes : ''}
-                </div>
-            </div>
-        `).join('');
-    }
-    
-    function generateCode() {
+    function generateHTML() {
         const title = document.getElementById('title').value;
         const subtitle = document.getElementById('subtitle').value;
         const gofundme = document.getElementById('gofundme').value;
-        
-        if (!title) {
-            alert('Please add at least a title!');
-            return;
-        }
         
         const photos = [];
         for (let i = 1; i <= 4; i++) {
@@ -452,15 +290,9 @@ No amount is too small. Frank’s family is incredibly grateful for any support 
             if (label) {
                 photos.push({
                     label: label,
-                    img: document.getElementById('img' + i).value || '',
-                    content: document.getElementById('content' + i).value || 'Details coming soon...'
+                    content: document.getElementById('content' + i).value
                 });
             }
-        }
-        
-        if (photos.length === 0) {
-            alert('Please add at least one photo!');
-            return;
         }
         
         const html = buildHTML(title, subtitle, photos, gofundme);
@@ -471,20 +303,17 @@ No amount is too small. Frank’s family is incredibly grateful for any support 
     }
     
     function buildHTML(title, subtitle, photos, gofundmeLink) {
-        const photosHTML = photos.map((p, i) => {
-            const imgSrc = p.img || `https://via.placeholder.com/400x250/667eea/ffffff?text=${encodeURIComponent(p.label)}`;
-            return `
+        const photosHTML = photos.map((p, i) => `
     <div class="photo-card" onclick="showModal(${i})">
-        <img src="${imgSrc}" alt="${p.label}">
+        <div class="photo-placeholder">${p.label}</div>
         <div class="photo-label">${p.label}</div>
         <div class="i-button">i</div>
-    </div>`;
-        }).join('');
+    </div>`).join('');
         
         const photoDataJSON = JSON.stringify(photos);
         
         return `<!DOCTYPE html>
-```
+
 
 <html>
 <head>
@@ -498,10 +327,10 @@ No amount is too small. Frank’s family is incredibly grateful for any support 
         .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
         .header p { font-size: 1.2rem; opacity: 0.9; }
         .photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
-        .photo-card { position: relative; border-radius: 15px; overflow: hidden; cursor: pointer; box-shadow: 0 5px 20px rgba(0,0,0,0.15); transition: transform 0.3s; }
+        .photo-card { position: relative; border-radius: 15px; overflow: hidden; cursor: pointer; box-shadow: 0 5px 20px rgba(0,0,0,0.15); transition: transform 0.3s; background: white; }
         .photo-card:hover { transform: translateY(-8px); }
-        .photo-card img { width: 100%; height: 250px; object-fit: cover; }
-        .photo-label { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.85)); color: white; padding: 20px; font-weight: 600; font-size: 1.1rem; }
+        .photo-placeholder { width: 100%; height: 250px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; }
+        .photo-label { padding: 20px; font-weight: 600; font-size: 1.1rem; color: #333; }
         .i-button { position: absolute; top: 15px; right: 15px; background: rgba(102,126,234,0.95); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
         .donate { text-align: center; padding: 50px 20px; background: #fff; }
@@ -516,7 +345,7 @@ No amount is too small. Frank’s family is incredibly grateful for any support 
         .modal-header h3 { font-size: 1.5rem; }
         .modal-close { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.25); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 24px; font-weight: bold; }
         .modal-close:hover { background: rgba(255,255,255,0.4); }
-        .modal-body { padding: 30px; line-height: 1.8; color: #333; font-size: 1rem; }
+        .modal-body { padding: 30px; line-height: 1.8; color: #333; font-size: 1rem; white-space: pre-wrap; }
     </style>
 </head>
 <body>
@@ -525,7 +354,6 @@ No amount is too small. Frank’s family is incredibly grateful for any support 
         <p>${subtitle}</p>
     </div>
 
-```
 <div class="photos">
     ${photosHTML}
 </div>
@@ -550,7 +378,7 @@ No amount is too small. Frank’s family is incredibly grateful for any support 
     
     function showModal(index) {
         document.getElementById('modalTitle').textContent = data[index].label;
-        document.getElementById('modalBody').innerHTML = data[index].content.replace(/\\n/g, '<br>');
+        document.getElementById('modalBody').textContent = data[index].content;
         document.getElementById('modal').classList.add('show');
     }
     
@@ -558,23 +386,22 @@ No amount is too small. Frank’s family is incredibly grateful for any support 
         document.getElementById('modal').classList.remove('show');
     }
 </script>
-```
+
 
 </body>
 </html>`;
         }
 
-```
-    function copyCode() {
+    function copyToClipboard() {
         const code = document.getElementById('codeOutput').textContent;
         navigator.clipboard.writeText(code).then(() => {
-            alert('✅ Code copied to clipboard! Paste it into a new .html file.');
+            alert('✅ Code copied! Save it as frank.html');
         }).catch(() => {
-            alert('Please manually select and copy the code above.');
+            alert('Please manually select and copy the code.');
         });
     }
 </script>
-```
+
 
 </body>
 </html>
