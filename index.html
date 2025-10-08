@@ -1,323 +1,8 @@
 <!DOCTYPE html>
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>iTabs Builder - GoFundMe</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        background: #f5f5f5;
-        padding: 20px;
-    }
-    
-    .container {
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-    
-    .header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 30px;
-        border-radius: 12px;
-        margin-bottom: 30px;
-        text-align: center;
-    }
-    
-    .header h1 {
-        font-size: 2rem;
-        margin-bottom: 10px;
-    }
-    
-    .builder-section {
-        background: white;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    
-    .form-group {
-        margin-bottom: 20px;
-    }
-    
-    .form-label {
-        display: block;
-        font-weight: 600;
-        margin-bottom: 8px;
-        color: #333;
-    }
-    
-    .form-input, .form-textarea {
-        width: 100%;
-        padding: 12px;
-        border: 2px solid #e0e0e0;
-        border-radius: 6px;
-        font-family: inherit;
-        font-size: 14px;
-    }
-    
-    .form-input:focus, .form-textarea:focus {
-        outline: none;
-        border-color: #667eea;
-    }
-    
-    .form-textarea {
-        min-height: 100px;
-        resize: vertical;
-    }
-    
-    .btn {
-        background: #667eea;
-        color: white;
-        border: none;
-        padding: 15px 30px;
-        border-radius: 8px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 16px;
-        margin-top: 10px;
-        width: 100%;
-    }
-    
-    .btn:hover {
-        background: #5568d3;
-    }
-    
-    .photo-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin: 20px 0;
-    }
-    
-    .photo-box {
-        background: #f8f9fa;
-        padding: 20px;
-        border-radius: 8px;
-        border: 2px dashed #667eea;
-    }
-    
-    .output-section {
-        margin-top: 30px;
-        padding: 20px;
-        background: #f8f9fa;
-        border-radius: 8px;
-        display: none;
-    }
-    
-    .output-section.show {
-        display: block;
-    }
-    
-    .code-box {
-        background: #2d2d2d;
-        color: #f8f8f2;
-        padding: 20px;
-        border-radius: 8px;
-        font-family: 'Courier New', monospace;
-        font-size: 11px;
-        max-height: 400px;
-        overflow: auto;
-        margin: 15px 0;
-        white-space: pre-wrap;
-        word-wrap: break-word;
-    }
-    
-    .success-msg {
-        background: #d4edda;
-        color: #155724;
-        padding: 15px;
-        border-radius: 8px;
-        margin-bottom: 15px;
-        border-left: 4px solid #28a745;
-        font-weight: 600;
-    }
-    
-    @media (max-width: 768px) {
-        .photo-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-</style>
-
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>🔨 iTabs Builder</h1>
-            <p>Pre-filled with Frank's Campaign - Just Click Generate!</p>
-        </div>
-
-    <div class="builder-section">
-        <h2 style="margin-bottom: 20px;">Campaign Details</h2>
-        
-        <div class="form-group">
-            <label class="form-label">Campaign Title</label>
-            <input type="text" id="title" class="form-input" value="Help Frank Fight Cancer">
-        </div>
-        
-        <div class="form-group">
-            <label class="form-label">Campaign Subtitle</label>
-            <input type="text" id="subtitle" class="form-input" value="Boilermaker & Farmer Fighting Cancer - Supporting Family During Treatment">
-        </div>
-        
-        <h3 style="margin: 30px 0 15px 0;">Photos with "i" Button Content</h3>
-        
-        <div class="photo-grid">
-            <div class="photo-box">
-                <div class="form-group">
-                    <label class="form-label">Photo 1 Label</label>
-                    <input type="text" id="label1" class="form-input" value="Frank's Challenge">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Content when clicking "i"</label>
-                    <textarea id="content1" class="form-textarea">Frank is a 52-year-old boilermaker and farmer from rural WA. He's worked hard his entire life and is known in his community as someone who shows up when others need him.
-
-In March 2025, Frank was diagnosed with Stage 3 cancer. The aggressive treatment plan requires him to stop work immediately, travel to Perth for weekly treatments, and face significant costs not covered by Medicare.
-
-His family depends on his income, and without support, he’ll have to choose between proper treatment and keeping his family afloat.</textarea>
-</div>
-</div>
-
-            <div class="photo-box">
-                <div class="form-group">
-                    <label class="form-label">Photo 2 Label</label>
-                    <input type="text" id="label2" class="form-input" value="Treatment Costs">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Content when clicking "i"</label>
-                    <textarea id="content2" class="form-textarea">MEDICAL COSTS:
-
-• Specialist consultations: $4,500
-• Medications not on PBS: $8,200
-• Additional treatments: $3,800
-Medical Total: $16,500
-
-LIVING EXPENSES (6 months):
-• Perth accommodation: $9,600
-• Travel costs: $4,200
-• Family support at home: $12,000
-Living Total: $25,800
-
-Campaign Goal: $48,645 (includes 15% emergency buffer)
-
-Every dollar is accounted for and will be used transparently.</textarea>
-</div>
-</div>
-
-
-            <div class="photo-box">
-                <div class="form-group">
-                    <label class="form-label">Photo 3 Label</label>
-                    <input type="text" id="label3" class="form-input" value="Treatment Timeline">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Content when clicking "i"</label>
-                    <textarea id="content3" class="form-textarea">6-MONTH TREATMENT PLAN:
-
-
-Weeks 1-8: Initial intensive treatment
-Weekly trips to Perth for chemotherapy
-
-Weeks 9-16: Ongoing treatment phase
-Bi-weekly sessions, monitoring progress
-
-Weeks 17-24: Recovery and assessment
-Follow-up appointments, strength rebuilding
-
-Frank and his family will update this page every 2 weeks with progress, showing exactly how funds are being used. Full transparency, always.</textarea>
-</div>
-</div>
-
-
-            <div class="photo-box">
-                <div class="form-group">
-                    <label class="form-label">Photo 4 Label</label>
-                    <input type="text" id="label4" class="form-input" value="How Your Donation Helps">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Content when clicking "i"</label>
-                    <textarea id="content4" class="form-textarea">Every donation makes a real difference:
-
-
-$50 - Covers one week of accommodation in Perth
-$100 - Covers fuel for two round trips to hospital
-$250 - Covers one specialist consultation
-$500 - Covers one week of medications
-$1,000+ - Covers critical treatment costs
-
-No amount is too small. Frank’s family is incredibly grateful for any support during this difficult time.
-
-100% of funds go directly to Frank’s medical and living expenses. Complete transparency through regular updates.</textarea>
-</div>
-</div>
-</div>
-
-        <div class="form-group">
-            <label class="form-label">Link to GoFundMe Campaign</label>
-            <input type="text" id="gofundme" class="form-input" value="https://gofundme.com/help-frank-fight-cancer">
-        </div>
-        
-        <button class="btn" onclick="generateHTML()">🚀 Generate iTabs HTML Code</button>
-        
-        <div id="output" class="output-section">
-            <div class="success-msg">
-                ✅ Code Generated! Copy it and save as "frank.html" then open in your browser.
-            </div>
-            <div class="code-box" id="codeOutput"></div>
-            <button class="btn" onclick="copyToClipboard()">📋 Copy All Code</button>
-        </div>
-    </div>
-</div>
-
-<script>
-    function generateHTML() {
-        const title = document.getElementById('title').value;
-        const subtitle = document.getElementById('subtitle').value;
-        const gofundme = document.getElementById('gofundme').value;
-        
-        const photos = [];
-        for (let i = 1; i <= 4; i++) {
-            const label = document.getElementById('label' + i).value;
-            if (label) {
-                photos.push({
-                    label: label,
-                    content: document.getElementById('content' + i).value
-                });
-            }
-        }
-        
-        const html = buildHTML(title, subtitle, photos, gofundme);
-        
-        document.getElementById('codeOutput').textContent = html;
-        document.getElementById('output').classList.add('show');
-        document.getElementById('output').scrollIntoView({ behavior: 'smooth' });
-    }
-    
-    function buildHTML(title, subtitle, photos, gofundmeLink) {
-        const photosHTML = photos.map((p, i) => `
-    <div class="photo-card" onclick="showModal(${i})">
-        <div class="photo-placeholder">${p.label}</div>
-        <div class="photo-label">${p.label}</div>
-        <div class="i-button">i</div>
-    </div>`).join('');
-        
-        const photoDataJSON = JSON.stringify(photos);
-        
-        return `<!DOCTYPE html>
-
-
 <html>
 <head>
-    <title>${title}</title>
+    <title>Help Frank Fight Cancer</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
@@ -329,7 +14,7 @@ No amount is too small. Frank’s family is incredibly grateful for any support 
         .photos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; padding: 40px 20px; max-width: 1200px; margin: 0 auto; }
         .photo-card { position: relative; border-radius: 15px; overflow: hidden; cursor: pointer; box-shadow: 0 5px 20px rgba(0,0,0,0.15); transition: transform 0.3s; background: white; }
         .photo-card:hover { transform: translateY(-8px); }
-        .photo-placeholder { width: 100%; height: 250px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; }
+        .photo-img { width: 100%; height: 250px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; }
         .photo-label { padding: 20px; font-weight: 600; font-size: 1.1rem; color: #333; }
         .i-button { position: absolute; top: 15px; right: 15px; background: rgba(102,126,234,0.95); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 1.3rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
@@ -337,30 +22,52 @@ No amount is too small. Frank’s family is incredibly grateful for any support 
         .donate h2 { font-size: 2rem; margin-bottom: 25px; color: #333; }
         .donate-btn { display: inline-block; background: #02a95c; color: white; padding: 18px 50px; border-radius: 30px; text-decoration: none; font-weight: 600; font-size: 1.2rem; transition: background 0.3s; }
         .donate-btn:hover { background: #028a4c; }
-        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.75); align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; z-index: 1000; padding: 20px; }
         .modal.show { display: flex; }
-        .modal-box { background: white; border-radius: 20px; max-width: 600px; width: 100%; max-height: 85vh; overflow-y: auto; animation: slideUp 0.3s ease; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .modal-box { background: white; border-radius: 20px; max-width: 600px; width: 100%; max-height: 85vh; overflow-y: auto; }
         .modal-header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 30px; position: relative; border-radius: 20px 20px 0 0; }
         .modal-header h3 { font-size: 1.5rem; }
-        .modal-close { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.25); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 24px; font-weight: bold; }
-        .modal-close:hover { background: rgba(255,255,255,0.4); }
-        .modal-body { padding: 30px; line-height: 1.8; color: #333; font-size: 1rem; white-space: pre-wrap; }
+        .modal-close { position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.3); border: none; color: white; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 24px; font-weight: bold; }
+        .modal-close:hover { background: rgba(255,255,255,0.5); }
+        .modal-body { padding: 30px; line-height: 1.8; color: #333; white-space: pre-wrap; }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>${title}</h1>
-        <p>${subtitle}</p>
+        <h1>Help Frank Fight Cancer</h1>
+        <p>Boilermaker & Farmer Fighting Cancer - Supporting Family During Treatment</p>
     </div>
 
+```
 <div class="photos">
-    ${photosHTML}
+    <div class="photo-card" onclick="showModal(0)">
+        <div class="photo-img">🏥</div>
+        <div class="photo-label">Frank's Challenge</div>
+        <div class="i-button">i</div>
+    </div>
+    
+    <div class="photo-card" onclick="showModal(1)">
+        <div class="photo-img">💰</div>
+        <div class="photo-label">Treatment Costs</div>
+        <div class="i-button">i</div>
+    </div>
+    
+    <div class="photo-card" onclick="showModal(2)">
+        <div class="photo-img">📅</div>
+        <div class="photo-label">Treatment Timeline</div>
+        <div class="i-button">i</div>
+    </div>
+    
+    <div class="photo-card" onclick="showModal(3)">
+        <div class="photo-img">❤️</div>
+        <div class="photo-label">How Your Donation Helps</div>
+        <div class="i-button">i</div>
+    </div>
 </div>
 
 <div class="donate">
     <h2>Ready to Help?</h2>
-    <a href="${gofundmeLink}" class="donate-btn" target="_blank">Donate on GoFundMe</a>
+    <a href="https://gofundme.com/help-frank-fight-cancer" class="donate-btn" target="_blank">Donate on GoFundMe</a>
 </div>
 
 <div id="modal" class="modal" onclick="closeModal()">
@@ -374,7 +81,24 @@ No amount is too small. Frank’s family is incredibly grateful for any support 
 </div>
 
 <script>
-    const data = ${photoDataJSON};
+    const data = [
+        {
+            label: "Frank's Challenge",
+            content: "Frank is a 52-year-old boilermaker and farmer from rural WA. He's worked hard his entire life and is known in his community as someone who shows up when others need him.\n\nIn March 2025, Frank was diagnosed with Stage 3 cancer. The aggressive treatment plan requires him to stop work immediately, travel to Perth for weekly treatments, and face significant costs not covered by Medicare.\n\nHis family depends on his income, and without support, he'll have to choose between proper treatment and keeping his family afloat."
+        },
+        {
+            label: "Treatment Costs",
+            content: "MEDICAL COSTS:\n• Specialist consultations: $4,500\n• Medications not on PBS: $8,200\n• Additional treatments: $3,800\nMedical Total: $16,500\n\nLIVING EXPENSES (6 months):\n• Perth accommodation: $9,600\n• Travel costs: $4,200\n• Family support at home: $12,000\nLiving Total: $25,800\n\nCampaign Goal: $48,645 (includes 15% emergency buffer)\n\nEvery dollar is accounted for and will be used transparently."
+        },
+        {
+            label: "Treatment Timeline",
+            content: "6-MONTH TREATMENT PLAN:\n\nWeeks 1-8: Initial intensive treatment\nWeekly trips to Perth for chemotherapy\n\nWeeks 9-16: Ongoing treatment phase\nBi-weekly sessions, monitoring progress\n\nWeeks 17-24: Recovery and assessment\nFollow-up appointments, strength rebuilding\n\nFrank and his family will update this page every 2 weeks with progress, showing exactly how funds are being used. Full transparency, always."
+        },
+        {
+            label: "How Your Donation Helps",
+            content: "Every donation makes a real difference:\n\n$50 - Covers one week of accommodation in Perth\n$100 - Covers fuel for two round trips to hospital\n$250 - Covers one specialist consultation\n$500 - Covers one week of medications\n$1,000+ - Covers critical treatment costs\n\nNo amount is too small. Frank's family is incredibly grateful for any support during this difficult time.\n\n100% of funds go directly to Frank's medical and living expenses. Complete transparency through regular updates."
+        }
+    ];
     
     function showModal(index) {
         document.getElementById('modalTitle').textContent = data[index].label;
@@ -386,22 +110,7 @@ No amount is too small. Frank’s family is incredibly grateful for any support 
         document.getElementById('modal').classList.remove('show');
     }
 </script>
-
-
-</body>
-</html>`;
-        }
-
-    function copyToClipboard() {
-        const code = document.getElementById('codeOutput').textContent;
-        navigator.clipboard.writeText(code).then(() => {
-            alert('✅ Code copied! Save it as frank.html');
-        }).catch(() => {
-            alert('Please manually select and copy the code.');
-        });
-    }
-</script>
-
+```
 
 </body>
 </html>
